@@ -1,0 +1,30 @@
+{
+    "id" : "Lost",
+    "version" : "0.1.0-SNAPSHOT",
+    "author" : "nihal111",
+    "displayName" : "Lost",
+    "description" : "Are you truly lost? Will you ever return home?",
+    "dependencies" : [
+    {
+        "id" : "Core",
+        "minVersion" : "1.0.0"
+    },
+    {
+        "id" : "Journal",
+        "minVersion" : "0.1.0"
+    },
+    {
+        "id" : "Books",
+        "minVersion" : "1.0.0"
+    },
+    {
+        "id" : "WildAnimals",
+        "minVersion" : "0.1.0"
+    },
+    {
+        "id" : "WorldlyTooltip",
+        "minVersion" : "1.0.0"
+    }
+    ],
+    "serverSideOnly" : false
+}
