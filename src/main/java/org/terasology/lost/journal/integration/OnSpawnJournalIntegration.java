@@ -131,7 +131,7 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
         Prefab prefab = event.getNewItem().getParentPrefab();
         if (prefab != null) {
             ResourceUrn prefabUri = prefab.getUrn();
-            if (prefabUri.equals(new ResourceUrn("Core", "coal"))) {
+            if (prefabUri.equals(new ResourceUrn("WildAnimals", "meat"))) {
                 player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #112"));
             }
         }
