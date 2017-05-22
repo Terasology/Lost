@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package integration.journal;
+package org.terasology.lost.journal.integration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.terasology.assets.ResourceUrn;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
+import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.prefab.PrefabManager;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
@@ -27,6 +29,8 @@ import org.terasology.journal.DiscoveredNewJournalEntry;
 import org.terasology.journal.JournalEntryProducer;
 import org.terasology.journal.JournalManager;
 import org.terasology.journal.TimestampResolver;
+import org.terasology.logic.characters.CharacterComponent;
+import org.terasology.logic.inventory.events.InventorySlotChangedEvent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.HorizontalAlign;
@@ -39,9 +43,6 @@ import org.terasology.world.block.BlockManager;
 import java.util.Arrays;
 import java.util.Collection;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 @RegisterSystem
 public class OnSpawnJournalIntegration extends BaseComponentSystem {
     private static final Logger logger = LoggerFactory.getLogger(OnSpawnJournalIntegration.class);
@@ -65,7 +66,7 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
 
         BrowserJournalChapterHandler chapterHandler = new BrowserJournalChapterHandler();
 
-        chapterHandler.registerJournalEntry("1",
+        chapterHandler.registerJournalEntry("Exploration Log #111",
                 Arrays.asList(
                         createTitleParagraph("Exploration Log #111"),
                         createTextParagraph("Star Date: 2875.63"),
@@ -79,7 +80,7 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
                                 "Duration should be less than a month. Glad to be back scouting!")
                 ));
 
-        chapterHandler.registerJournalEntry("2",
+        chapterHandler.registerJournalEntry("Exploration Log #112",
                 Arrays.asList(
                         createTitleParagraph("Exploration Log #112"),
                         createTextParagraph("Star Date: 2875.65"),
@@ -121,8 +122,19 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
     @ReceiveEvent
     public void playerSpawned(OnPlayerSpawnedEvent event, EntityRef player) {
         logger.info("Spawned");
-        player.send(new DiscoveredNewJournalEntry(lostChapterId, "1"));
-        player.send(new DiscoveredNewJournalEntry(lostChapterId, "2"));
+        player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #111"));
+    }
+
+    @ReceiveEvent
+    public void playerPickedUpItem(InventorySlotChangedEvent event, EntityRef player,
+                                   CharacterComponent characterComponent) {
+        Prefab prefab = event.getNewItem().getParentPrefab();
+        if (prefab != null) {
+            ResourceUrn prefabUri = prefab.getUrn();
+            if (prefabUri.equals(new ResourceUrn("Core", "coal"))) {
+                player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #112"));
+            }
+        }
     }
 
 
