@@ -21,5 +21,7 @@
     {"id": "ChrisVolume1OST", "minVersion": "0.2.1"},
     {"id": "WoodAndStoneCraftingJournal", "minVersion": "0.1.0"}
     ],
-    "serverSideOnly" : false
+    "serverSideOnly" : false,
+    "isGameplay" : "true",
+    "defaultWorldGenerator" : "Lost:lost"
 }

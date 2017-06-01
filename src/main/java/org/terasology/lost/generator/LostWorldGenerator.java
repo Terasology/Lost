@@ -67,7 +67,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-@RegisterWorldGenerator(id = "Lost", displayName = "Lost", description = "Generates the world for playing the 'Lost' exploration world.")
+@RegisterWorldGenerator(id = "lost", displayName = "Lost", description = "Generates the world for playing the 'Lost' exploration world.")
 public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     private BlockManager blockManager;
     
