@@ -5,26 +5,21 @@
     "displayName" : "Lost",
     "description" : "Are you truly lost? Will you ever return home?",
     "dependencies" : [
-    {
-        "id" : "Core",
-        "minVersion" : "1.0.0"
-    },
-    {
-        "id" : "Journal",
-        "minVersion" : "0.1.0"
-    },
-    {
-        "id" : "Books",
-        "minVersion" : "1.0.0"
-    },
-    {
-        "id" : "WildAnimals",
-        "minVersion" : "0.1.0"
-    },
-    {
-        "id" : "WorldlyTooltip",
-        "minVersion" : "1.0.0"
-    }
+    {"id": "Core", "minVersion": "1.0.0"},
+    {"id": "Journal", "minVersion": "0.1.0"},
+    {"id": "Books", "minVersion": "1.0.0"},
+    {"id": "WildAnimals", "minVersion": "0.1.0"},
+    {"id": "WorldlyTooltip", "minVersion": "1.0.0"},
+    {"id": "WoodCrafting", "minVersion": "1.0.0"},
+    {"id": "StoneCrafting", "minVersion": "1.0.0"},
+    {"id": "EquipmentSmithing", "minVersion": "1.0.0"},
+    {"id": "Alchemy", "minVersion": "1.0.0"},
+    {"id": "Cooking", "minVersion": "1.0.0"},
+    {"id": "SimpleFarming", "minVersion": "1.0.0"},
+    {"id": "Hunger", "minVersion": "1.0.0"},
+    {"id": "Thirst", "minVersion": "1.0.0"},
+    {"id": "ChrisVolume1OST", "minVersion": "0.2.1"},
+    {"id": "WoodAndStoneCraftingJournal", "minVersion": "0.1.0"}
     ],
     "serverSideOnly" : false
 }
