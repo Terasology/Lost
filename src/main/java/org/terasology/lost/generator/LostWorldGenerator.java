@@ -70,27 +70,27 @@ import java.util.List;
 @RegisterWorldGenerator(id = "lost", displayName = "Lost", description = "Generates the world for playing the 'Lost' exploration world.")
 public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     private BlockManager blockManager;
-    
+
     @In
     private WorldGeneratorPluginLibrary worldGeneratorPluginLibrary;
-    
+
     private List<ChunkDecorator> chunkDecorators = new LinkedList<>();
     private List<FeatureGenerator> featureGenerators = new LinkedList<>();
     private List<FacetProvider> facetProviders = new LinkedList<>();
-    
+
     private int seaLevel = 1700;
-    private int maxLevel = 4000;
+    private int maxLevel = 2300;
     private float biomeDiversity = 0.5f;
-    
+
     private Function<Float, Float> temperatureFunction = IdentityAlphaFunction.singleton();
     private Function<Float, Float> humidityFunction = IdentityAlphaFunction.singleton();
-    
+
     private PerlinSurfaceHeightProvider surfaceHeightProvider;
 
     public LostWorldGenerator(SimpleUri uri) {
         super(uri);
     }
-    
+
     public void addChunkDecorator(ChunkDecorator chunkGenerator) {
         chunkDecorators.add(chunkGenerator);
     }
@@ -102,7 +102,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     public void addFacetProvider(FacetProvider facetProvider) {
         facetProviders.add(facetProvider);
     }
-    
+
     public void setSeaLevel(int seaLevel) {
         this.seaLevel = seaLevel;
     }
@@ -137,17 +137,17 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 heightAboveSeaLevelFunction,
                 hillinessDiversity, hillynessFunction, seaLevel, maxLevel);
     }
-    
+
     @Override
     public void initialize() {
         setupRasterizerInitializer();
-        
+
         getWorld().initialize();
     }
-    
-    private void setupRasterizerInitializer(){
+
+    private void setupRasterizerInitializer() {
         addChunkDecorator(new BiomeDecorator());
-        
+
         blockManager = CoreRegistry.get(BlockManager.class);
 
         final Block mantle = blockManager.getBlock("Core:MantleStone");
@@ -159,11 +159,11 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         final Block grass = blockManager.getBlock("Core:Grass");
         final Block snow = blockManager.getBlock("Core:Snow");
         final Block ice = blockManager.getBlock("Core:Ice");
-        
-     // Setup biome terrain layers
+
+        // Setup biome terrain layers
         setupLayers(mantle, water, LiquidType.WATER, stone, sand, dirt, grass, snow, ice, seaLevel);
-        
-     // Replace stone with sand on the sea shores
+
+        // Replace stone with sand on the sea shores
         addChunkDecorator(
                 new BeachDecorator(new BlockCollectionPredicate(Arrays.asList(stone, dirt, grass, snow)), new BeachBlockProvider(0.05f, clay, sand), seaLevel - 5, seaLevel + 2));
 
@@ -176,14 +176,14 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
 
         // Setup ore spawning
         setupOreGenerator(stone);
-        
+
         FloraFeatureGenerator floraDecorator = new FloraFeatureGenerator();
         addFeatureGenerator(floraDecorator);
-        
-        if(worldBuilder == null){
+
+        if (worldBuilder == null) {
             worldBuilder = createWorld();
         }
-        
+
         for (ChunkDecorator chunkDecorator : chunkDecorators) {
             worldBuilder.addRasterizer(chunkDecorator);
         }
@@ -193,8 +193,6 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     }
 
     protected void setupGenerator() {
-        seaLevel = 1700;
-        maxLevel = 4000;
 
         setSeaLevel(seaLevel);
         setMaxLevel(maxLevel);
@@ -206,7 +204,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         // only exist in higher Y-levels
         setTemperatureFunction(
                 new MinMaxAlphaFunction(new UniformNoiseAlpha(IdentityAlphaFunction.singleton()), 0.4f, 1f));
-        
+
         setLandscapeOptions(
                 // 40% of the landscape is under water
                 0.4f,
@@ -220,23 +218,23 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 new PowerAlphaFunction(IdentityAlphaFunction.singleton(), 2f),
                 // Smoothen the terrain a bit
                 0.5f, new MinMaxAlphaFunction(new PowerAlphaFunction(new UniformNoiseAlpha(IdentityAlphaFunction.singleton()), 1.3f), 0.1f, 1f));
-        
+
         // Setup flora growing in the world
         setupFlora(seaLevel);
     }
-    
+
     @Override
-    protected WorldBuilder createWorld(){
+    protected WorldBuilder createWorld() {
         setupGenerator();
-        
+
         ClimateConditionsSystem environmentSystem = new ClimateConditionsSystem();
         environmentSystem.setWorldSeed(getWorldSeed());
         environmentSystem.configureHumidity(seaLevel, maxLevel, biomeDiversity, humidityFunction, 0, 1);
         environmentSystem.configureTemperature(seaLevel, maxLevel, biomeDiversity, temperatureFunction, -20, 40);
-        
+
         ConditionsBaseField temperatureBaseField = environmentSystem.getTemperatureBaseField();
         ConditionsBaseField humidityBaseField = environmentSystem.getHumidityBaseField();
-        
+
         WorldBuilder worldBuilder = new WorldBuilder(worldGeneratorPluginLibrary);
         worldBuilder.addProvider(new BiomeProvider());
         worldBuilder.addProvider(new HillynessProvider());
@@ -250,7 +248,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         for (FacetProvider facetProvider : facetProviders) {
             worldBuilder.addProvider(facetProvider);
         }
-        
+
         return worldBuilder;
     }
 

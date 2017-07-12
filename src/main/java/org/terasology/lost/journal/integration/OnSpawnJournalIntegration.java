@@ -23,6 +23,7 @@ import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.prefab.PrefabManager;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
+import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.journal.BrowserJournalChapterHandler;
 import org.terasology.journal.DiscoveredNewJournalEntry;
@@ -43,7 +44,7 @@ import org.terasology.world.block.BlockManager;
 import java.util.Arrays;
 import java.util.Collection;
 
-@RegisterSystem
+@RegisterSystem(RegisterMode.AUTHORITY)
 public class OnSpawnJournalIntegration extends BaseComponentSystem {
     private static final Logger logger = LoggerFactory.getLogger(OnSpawnJournalIntegration.class);
     @In
@@ -69,7 +70,6 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
         chapterHandler.registerJournalEntry("Exploration Log #111",
                 Arrays.asList(
                         createTitleParagraph("Exploration Log #111"),
-                        createTextParagraph("Star Date: 2875.63"),
                         createTextParagraph("Survey of Epsilon Draconis system is now complete. The system is concluded to be inhabitable " +
                                 "after seven months of relentless exploration. However, planet 7: Scorpion Chapel, scouted by Ranger 729 is " +
                                 "confirmed to possess huge amounts of metal ores and methane. The planet can be scavenged for resources but is " +
@@ -83,7 +83,6 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
         chapterHandler.registerJournalEntry("Exploration Log #112",
                 Arrays.asList(
                         createTitleParagraph("Exploration Log #112"),
-                        createTextParagraph("Star Date: 2875.65"),
                         createTextParagraph("After five hours of trying to establish communication with base back at Narvij and nearby space " +
                                 "stations, I’ve given up. The solar flares from Proxima Lateralus seem to have some sort of interference with" +
                                 " the signals. The situation seems grim, my Antrum Sabre, which I used to create the wormhole, is now dysfunctional." +

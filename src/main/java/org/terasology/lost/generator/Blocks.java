@@ -30,7 +30,7 @@ public final class Blocks {
      * Get a block with a given ID.
      *
      * @param blockId The ID of the block
-     * @return        The block with the given ID
+     * @return The block with the given ID
      */
     public static Block getBlock(String blockId) {
         return CoreRegistry.get(BlockManager.class).getBlock(blockId);

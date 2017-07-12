@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 MovingBlocks
+ * Copyright 2017 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.lost.books.integration;
+package org.terasology.lost;
 
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -27,7 +27,7 @@ import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.registry.In;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
-public class OnSpawnBooksIntegration extends BaseComponentSystem {
+public class OnSpawnSystem extends BaseComponentSystem {
     @In
     private EntityManager entityManager;
     @In
@@ -35,7 +35,6 @@ public class OnSpawnBooksIntegration extends BaseComponentSystem {
 
     @ReceiveEvent
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, InventoryComponent inventory) {
-        inventoryManager.giveItem(player, null, entityManager.create("Lost:spaceStoriesBook"));
-        inventoryManager.giveItem(player, null, entityManager.create("Books:quill"));
+        inventoryManager.giveItem(player, null, entityManager.create("Lost:antrumSabre"));
     }
 }
