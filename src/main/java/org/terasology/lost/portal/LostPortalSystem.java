@@ -25,13 +25,17 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.characters.CharacterHeldItemComponent;
 import org.terasology.logic.common.ActivateEvent;
 import org.terasology.math.geom.Vector3f;
+import org.terasology.registry.In;
+import org.terasology.world.BlockEntityRegistry;
+import org.terasology.world.block.BlockComponent;
 import org.terasology.world.block.items.BlockItemComponent;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class LostPortalSystem extends BaseComponentSystem {
 
-
     private static final Logger logger = LoggerFactory.getLogger(LostPortalSystem.class);
+    @In
+    private BlockEntityRegistry blockEntityRegistry;
 
     @ReceiveEvent(components = {ArkenstoneComponent.class})
     public void onActivate(ActivateEvent event, EntityRef entity) {
@@ -50,5 +54,77 @@ public class LostPortalSystem extends BaseComponentSystem {
 
     private void activatePortal(Vector3f keyLocation) {
         logger.info("Activating Portal with keystone at: " + keyLocation);
+        EntityRef block;
+        // Check for surrounding 8 blocks
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                }
+                block = blockEntityRegistry.getBlockEntityAt(new Vector3f(i, 0, j).add(keyLocation));
+                if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                        .equalsIgnoreCase("Lost:ShatteredPlasma")) {
+                    return;
+                }
+            }
+        }
+
+        // Checking for orientation of facade
+        block = blockEntityRegistry.getBlockEntityAt(new Vector3f(1, 1, 0).add(keyLocation));
+        if (block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(-1, 1, 0).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(1, 2, 0).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(-1, 2, 0).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            for (int i = -1; i <= 1; i++) {
+                block = blockEntityRegistry.getBlockEntityAt(new Vector3f(i, 3, 0).add(keyLocation));
+                if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                        .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                    return;
+                }
+            }
+        } else {
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(0, 1, 1).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(0, 1, -1).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(0, 2, 1).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            block = blockEntityRegistry.getBlockEntityAt(new Vector3f(0, 2, -1).add(keyLocation));
+            if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                    .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                return;
+            }
+            for (int i = -1; i <= 1; i++) {
+                block = blockEntityRegistry.getBlockEntityAt(new Vector3f(0, 3, i).add(keyLocation));
+                if (!block.getComponent(BlockComponent.class).getBlock().getURI().toString()
+                        .equalsIgnoreCase("Lost:FacadeOfTruth")) {
+                    return;
+                }
+            }
+        }
+        logger.info("Poral active");
     }
 }
