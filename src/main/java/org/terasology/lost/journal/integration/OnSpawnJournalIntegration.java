@@ -121,7 +121,6 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
 
     @ReceiveEvent
     public void playerSpawned(OnPlayerSpawnedEvent event, EntityRef player) {
-        logger.info("Spawned");
         player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #111"));
     }
 

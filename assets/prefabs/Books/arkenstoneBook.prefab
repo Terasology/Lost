@@ -1,0 +1,24 @@
+{
+  "parent" : "engine:iconItem",
+  "Item" : {
+    "icon" : "engine:items#brownBook",
+    "usage" : "ON_USER"
+  },
+  "DisplayName" : {
+    "name" : "The key Book"
+  },
+  "Book" : {
+    "pages" : [
+      "The arkenstone and the obsidian torch together comprise the smallest, yet most vital pieces of the Portal.",
+      "The arkenstone is placed at the head of the facade and it activates the portal for ignition. Preserved since the dawn of the ancient ages, this stone serves as the key to the Portal.",
+      "The obsidian torch discovered by the natives in the West, was a remnant found inside the largest volcano. With an ever-glowing flame, it also has other mystical usages. Knocking on the arkenstone with the obsidian torch would light up the portal and activate it."
+    ],
+    "tint" : [245, 222, 179, 255],
+    "readOnly" : true,
+    "title" : "The key"
+  },
+  "InteractionTarget": {},
+  "InteractionScreen": {
+    "screen": "Books:BookScreen"
+  }
+}

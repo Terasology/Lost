@@ -1,0 +1,24 @@
+{
+  "parent" : "engine:iconItem",
+  "Item" : {
+    "icon" : "engine:items#blueBook",
+    "usage" : "ON_USER"
+  },
+  "DisplayName" : {
+    "name" : "Lies to save the Truth Book"
+  },
+  "Book" : {
+    "pages" : [
+      "Built on top of the shattered plasma foundation comes the hollow structure that acts as a frame. The frame of the portal through which a tunnel is created is called the Facade of Truth.",
+      "The Facade of Truth is made up of blocks of a special type of Basalt. These blocks need to be piled up to create a 3x3 frame with a 1x2 hole for the tunnel in between.",
+      "With the Shattered Plasma foundation laid, the Facade of Truth built on top, the arkenstone needs to be placed at the front of the foundation and tapped with the Obsidian Torch to activate and light up the portal."
+    ],
+    "tint" : [0, 0, 255, 255],
+    "readOnly" : true,
+    "title" : "Lies to save the Truth"
+  },
+  "InteractionTarget": {},
+  "InteractionScreen": {
+    "screen": "Books:BookScreen"
+  }
+}
