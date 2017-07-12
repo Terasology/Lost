@@ -1,4 +1,7 @@
 {
   "displayName": "Arkenstone",
-  "categories": ["stone"]
+  "categories": ["stone"],
+  "entity": {
+    "prefab": "Lost:Arkenstone"
+  }
 }

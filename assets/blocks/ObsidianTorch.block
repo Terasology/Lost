@@ -1,0 +1,22 @@
+{
+  "displayName": "Obsidian Torch",
+  "rotation": "attachedToSurface",
+  "sides": {
+    "shape": "TorchWall"
+  },
+  "top": {
+    "shape": "TorchGrounded"
+  },
+  "penetrable": true,
+  "attachmentAllowed": false,
+  "shadowCasting": false,
+  "luminance": 15,
+  "hardness": 1,
+  "inventory": {
+    "directPickup": true
+  },
+  "entity": {
+    "prefab": "Lost:obsidianTorch"
+  },
+  "mass": 10
+}
