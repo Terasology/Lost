@@ -99,7 +99,7 @@
         "isFiring": true,
         "timePeriod": 1.0,
         "offset": 0.0,
-        "direction": [0.0, 0.0, 1.0],
+        "direction": [1.0, 0.0, 0.0],
         "maxDistance": 8,
         "damageAmount": 200
       },
@@ -108,7 +108,7 @@
         "isFiring": true,
         "timePeriod": 1.0,
         "offset": 0.0,
-        "direction": [0.0, 0.0, -1.0],
+        "direction": [-1.0, 0.0, 0.0],
         "maxDistance": 8,
         "damageAmount": 200
       },
@@ -117,7 +117,7 @@
         "isFiring": true,
         "timePeriod": 1.0,
         "offset": 0.0,
-        "direction": [0.0, 0.0, 1.0],
+        "direction": [1.0, 0.0, 0.0],
         "maxDistance": 8,
         "damageAmount": 200
       },
@@ -126,7 +126,7 @@
         "isFiring": true,
         "timePeriod": 1.0,
         "offset": 0.0,
-        "direction": [0.0, 0.0, -1.0],
+        "direction": [-1.0, 0.0, 0.0],
         "maxDistance": 8,
         "damageAmount": 200
       },
@@ -135,7 +135,7 @@
         "isFiring": true,
         "timePeriod": 1.0,
         "offset": 0.0,
-        "direction": [0.0, 0.0, 1.0],
+        "direction": [1.0, 0.0, 0.0],
         "maxDistance": 8,
         "damageAmount": 200
       },
@@ -144,7 +144,7 @@
         "isFiring": true,
         "timePeriod": 1.0,
         "offset": 0.0,
-        "direction": [0.0, 0.0, -1.0],
+        "direction": [-1.0, 0.0, 0.0],
         "maxDistance": 8,
         "damageAmount": 200
       }
