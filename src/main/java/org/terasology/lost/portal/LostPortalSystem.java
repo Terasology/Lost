@@ -24,7 +24,9 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.characters.CharacterHeldItemComponent;
 import org.terasology.logic.common.ActivateEvent;
+import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
+import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.world.BlockEntityRegistry;
 import org.terasology.world.block.BlockComponent;
@@ -49,13 +51,12 @@ public class LostPortalSystem extends BaseComponentSystem {
                 .equalsIgnoreCase("Lost:ObsidianTorch")) {
             return;
         }
-        activatePortal(event.getTargetLocation());
+        activatePortal(event.getTargetLocation(), event.getInstigator());
     }
 
-    private void activatePortal(Vector3f keyLocation) {
-        logger.info("Activating Portal with keystone at: " + keyLocation);
+    private void activatePortal(Vector3f keyLocation, EntityRef player) {
         EntityRef block;
-        // Check for surrounding 8 blocks
+        // Check for surrounding 8 blocks of shattered plasma
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) {
@@ -125,6 +126,13 @@ public class LostPortalSystem extends BaseComponentSystem {
                 }
             }
         }
-        logger.info("Poral active");
+        Vector3f playerWorldLocation = player.getComponent(LocationComponent.class).getWorldPosition();
+        Vector3i roundedKeyPosition = new Vector3i(Math.round(keyLocation.x), Math.round(keyLocation.y), Math.round(keyLocation.z));
+        Vector3i roundedPlayerPosition = new Vector3i(Math.round(playerWorldLocation.x), Math.round(playerWorldLocation.y), Math.round(playerWorldLocation.z));
+        if (roundedPlayerPosition.equals(new Vector3i(0, 1, 0).add(roundedKeyPosition)) ||
+                roundedPlayerPosition.equals(new Vector3i(0, 2, 0).add(roundedKeyPosition))) {
+            return;
+        }
+        logger.info("Portal active");
     }
 }
