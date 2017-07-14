@@ -170,9 +170,9 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         Predicate<Block> removableBlocks = new BlockCollectionPredicate(Arrays.asList(stone, sand, dirt, grass, snow));
 
         // Dig some caves in the terrain
-        addChunkDecorator(
-                new CaveDecorator(getWorldSeed().hashCode(), removableBlocks, new PDist(0.2f, 0f), new PDist(5f, 1f),
-                        new PDist(1750f, 400f), new PDist(50f, 10f), new PDist(2f, 0.5f), blockManager));
+//        addChunkDecorator(
+//                new CaveDecorator(getWorldSeed().hashCode(), removableBlocks, new PDist(0.2f, 0f), new PDist(5f, 1f),
+//                        new PDist(1750f, 400f), new PDist(50f, 10f), new PDist(2f, 0.5f), blockManager));
 
         // Setup ore spawning
         setupOreGenerator(stone);
