@@ -1,0 +1,71 @@
+{
+  "StructureTemplate": {
+  },
+  "SpawnBlockRegions": {
+    "regionsToFill": [
+      { "blockType": "Core:Chest.FRONT", "region": { "min": [0, -3, 4], "size": [1, 1, 1]}},
+      { "blockType": "Core:CobbleStone", "region": { "min": [-2, 0, 1], "size": [1, 1, 1]}},
+      { "blockType": "Core:CobbleStone", "region": { "min": [2, 0, 1], "size": [1, 1, 1]}},
+      { "blockType": "Core:CobbleStone", "region": { "min": [-2, 0, 5], "size": [1, 1, 1]}},
+      { "blockType": "Core:CobbleStone", "region": { "min": [2, 0, 5], "size": [1, 1, 1]}},
+      { "blockType": "Core:CobbleStone:engine:Stair.BACK", "region": { "min": [-1, 1, 5], "size": [3, 1, 1]}},
+      { "blockType": "Core:CobbleStone:engine:Stair.FRONT", "region": { "min": [-1, 1, 1], "size": [3, 1, 1]}},
+      { "blockType": "Core:CobbleStone:engine:Stair.LEFT", "region": { "min": [-2, 1, 2], "size": [1, 1, 3]}},
+      { "blockType": "Core:CobbleStone:engine:Stair.RIGHT", "region": { "min": [2, 1, 2], "size": [1, 1, 3]}},
+      { "blockType": "Core:Plank", "region": { "min": [-2, 4, 1], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [2, 4, 1], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [-1, 4, 2], "size": [3, 1, 3]}},
+      { "blockType": "Core:Plank", "region": { "min": [-1, 5, 2], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [1, 5, 2], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [0, 5, 3], "size": [1, 2, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [-1, 5, 4], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [1, 5, 4], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [-2, 4, 5], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank", "region": { "min": [2, 4, 5], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank:engine:Stair.BACK", "region": { "min": [0, 5, 4], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank:engine:Stair.BACK", "region": { "min": [-1, 4, 5], "size": [3, 1, 1]}},
+      { "blockType": "Core:Plank:engine:Stair.FRONT", "region": { "min": [-1, 4, 1], "size": [3, 1, 1]}},
+      { "blockType": "Core:Plank:engine:Stair.FRONT", "region": { "min": [0, 5, 2], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank:engine:Stair.LEFT", "region": { "min": [-2, 4, 2], "size": [1, 1, 3]}},
+      { "blockType": "Core:Plank:engine:Stair.LEFT", "region": { "min": [-1, 5, 3], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank:engine:Stair.RIGHT", "region": { "min": [2, 4, 2], "size": [1, 1, 3]}},
+      { "blockType": "Core:Plank:engine:Stair.RIGHT", "region": { "min": [1, 5, 3], "size": [1, 1, 1]}},
+      { "blockType": "Core:Plank:structuralResources:Pillar", "region": { "min": [-2, 1, 1], "size": [1, 3, 1]}},
+      { "blockType": "Core:Plank:structuralResources:Pillar", "region": { "min": [2, 1, 1], "size": [1, 3, 1]}},
+      { "blockType": "Core:Plank:structuralResources:Pillar", "region": { "min": [-2, 1, 5], "size": [1, 3, 1]}},
+      { "blockType": "Core:Plank:structuralResources:Pillar", "region": { "min": [2, 1, 5], "size": [1, 3, 1]}},
+      { "blockType": "core:stone", "region": { "min": [-2, -4, 1], "size": [5, 4, 1]}},
+      { "blockType": "core:stone", "region": { "min": [-1, 0, 1], "size": [3, 1, 1]}},
+      { "blockType": "core:stone", "region": { "min": [-2, -4, 2], "size": [5, 1, 3]}},
+      { "blockType": "core:stone", "region": { "min": [-2, -3, 2], "size": [1, 4, 3]}},
+      { "blockType": "core:stone", "region": { "min": [2, -3, 2], "size": [1, 4, 3]}},
+      { "blockType": "core:stone", "region": { "min": [-2, -4, 5], "size": [5, 4, 1]}},
+      { "blockType": "core:stone", "region": { "min": [-1, 0, 5], "size": [3, 1, 1]}},
+      { "blockType": "core:water", "region": { "min": [-1, -3, 2], "size": [3, 5, 2]}},
+      { "blockType": "core:water", "region": { "min": [-1, -3, 4], "size": [1, 1, 1]}},
+      { "blockType": "core:water", "region": { "min": [-1, -2, 4], "size": [3, 4, 1]}},
+      { "blockType": "core:water", "region": { "min": [1, -3, 4], "size": [1, 1, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 5, 1], "size": [5, 2, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-1, 2, 1], "size": [3, 2, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 2, 2], "size": [5, 2, 3]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 5, 2], "size": [1, 1, 3]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 6, 2], "size": [5, 1, 1]}},
+      { "blockType": "engine:air", "region": { "min": [2, 5, 2], "size": [1, 1, 3]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 6, 3], "size": [2, 1, 1]}},
+      { "blockType": "engine:air", "region": { "min": [1, 6, 3], "size": [2, 1, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 6, 4], "size": [5, 1, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-2, 5, 5], "size": [5, 2, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-1, 2, 5], "size": [3, 2, 1]}}
+    ]
+  },
+  "AddItemsToChest": {
+    "chestsToFill": [
+      {
+        "position": [0, -3, 4],
+        "items": [
+          {"slot": 0, "blockFamiliy": "Core:torch", "amount": 8}
+        ]
+      }
+    ]
+  }
+}
