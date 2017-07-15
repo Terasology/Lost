@@ -63,7 +63,7 @@
       {
         "position": [0, -3, 4],
         "items": [
-          {"slot": 0, "blockFamiliy": "Core:torch", "amount": 8}
+          {"slot": 0, "itemPrefab": "Lost:secretsBook"}
         ]
       }
     ]
