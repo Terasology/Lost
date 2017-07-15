@@ -17,8 +17,10 @@ package org.terasology.lost.journal.integration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.terasology.assets.ResourceUrn;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
+import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.prefab.PrefabManager;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
@@ -28,6 +30,8 @@ import org.terasology.journal.DiscoveredNewJournalEntry;
 import org.terasology.journal.JournalEntryProducer;
 import org.terasology.journal.JournalManager;
 import org.terasology.journal.TimestampResolver;
+import org.terasology.logic.characters.CharacterComponent;
+import org.terasology.logic.inventory.events.InventorySlotChangedEvent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.HorizontalAlign;
@@ -41,8 +45,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
-public class OnSpawnJournalIntegration extends BaseComponentSystem {
-    private static final Logger logger = LoggerFactory.getLogger(OnSpawnJournalIntegration.class);
+public class ItemPickupJournalIntegration extends BaseComponentSystem {
+    private static final Logger logger = LoggerFactory.getLogger(ItemPickupJournalIntegration.class);
     @In
     private JournalManager journalManager;
     @In
@@ -63,19 +67,6 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
 
         BrowserJournalChapterHandler chapterHandler = new BrowserJournalChapterHandler();
 
-        chapterHandler.registerJournalEntry("Exploration Log #111",
-                Arrays.asList(
-                        createTitleParagraph("Exploration Log #111"),
-                        createTextParagraph("Survey of Epsilon Draconis system is now complete. The system is concluded to be inhabitable " +
-                                "after seven months of relentless exploration. However, planet 7: Scorpion Chapel, scouted by Ranger 729 is " +
-                                "confirmed to possess huge amounts of metal ores and methane. The planet can be scavenged for resources but is " +
-                                "still incapable for supporting life akin to other planets in the system."),
-                        createTextParagraph("Iota Lateralus, a binary star planetary system, distant 3006 light years from Narvij, " +
-                                "appears promising. Survey is about to begin in two days. Inspection of circumbinary planet 4 of the" +
-                                " system- Rosseta Parabole, has been assigned to me. Mode of travel would be a regular triodal wormhole. " +
-                                "Duration should be less than a month. Glad to be back scouting!")
-                ));
-
         chapterHandler.registerJournalEntry("Exploration Log #112",
                 Arrays.asList(
                         createTitleParagraph("Exploration Log #112"),
@@ -88,10 +79,21 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
                                 "the last planet I set foot on.")
                 ));
 
+        chapterHandler.registerJournalEntry("Exploration Log #113",
+                Arrays.asList(
+                        createTitleParagraph("Exploration Log #113"),
+                        createTextParagraph("After five hours of trying to establish communication with base back at Narvij and nearby space " +
+                                "stations, I’ve given up. The solar flares from Proxima Lateralus seem to have some sort of interference with" +
+                                " the signals. The situation seems grim, my Antrum Sabre, which I used to create the wormhole, is now dysfunctional." +
+                                " I believe it was impacted in the journey. With the wormhole creator destroyed, I have no way to go back home."),
+                        createTextParagraph("The planet seems promising, as of yet. There is no sign of intelligent life. I do see some alien " +
+                                "lifeform alike some of the animals back home. I should find some way to ensure survival. This might just be " +
+                                "the last planet I set foot on.")
+                ));
+
         journalManager.registerJournalChapter(lostChapterId,
                 Assets.getTextureRegion("Lost:journalIcons#WoodAndStone").get(),
                 "Lost", chapterHandler);
-        logger.info("registered journal chapter");
     }
 
     private JournalEntryProducer createTimestampEntryProducer(String text) {
@@ -115,7 +117,17 @@ public class OnSpawnJournalIntegration extends BaseComponentSystem {
     }
 
     @ReceiveEvent
-    public void playerSpawned(OnPlayerSpawnedEvent event, EntityRef player) {
-        player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #111"));
+    public void playerPickedUpItem(InventorySlotChangedEvent event, EntityRef player,
+                                   CharacterComponent characterComponent) {
+        Prefab prefab = event.getNewItem().getParentPrefab();
+        if (prefab != null) {
+            ResourceUrn prefabUri = prefab.getUrn();
+            if (prefabUri.equals(new ResourceUrn("Lost", "secretsBook"))) {
+                player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #112"));
+                player.send(new DiscoveredNewJournalEntry(lostChapterId, "Exploration Log #113"));
+            }
+        }
     }
+
+
 }

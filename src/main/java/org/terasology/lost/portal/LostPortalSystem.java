@@ -22,9 +22,11 @@ import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.CharacterHeldItemComponent;
 import org.terasology.logic.common.ActivateEvent;
 import org.terasology.logic.location.LocationComponent;
+import org.terasology.logic.notifications.NotificationMessageEvent;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
@@ -134,5 +136,7 @@ public class LostPortalSystem extends BaseComponentSystem {
             return;
         }
         logger.info("Portal active");
+        EntityRef client = player.getComponent(CharacterComponent.class).controller;
+        client.send(new NotificationMessageEvent("Portal activated!", client));
     }
 }
