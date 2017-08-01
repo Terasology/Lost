@@ -185,7 +185,8 @@
         "position": [0, 1, 8],
         "items": [
           {"slot": 0, "blockFamiliy": "Lost:Arkenstone"},
-          {"slot": 1, "itemPrefab": "Lost:arkenstoneBook"}
+          {"slot": 1, "itemPrefab": "Lost:arkenstoneBook"},
+          {"slot": 2, "blockFamiliy": "Lost:obsidiantorch", "amount": 16}
         ]
       }
     ]
