@@ -131,8 +131,9 @@ public class LostJournalIntegration extends BaseComponentSystem {
                         createTextParagraph("The structure was gigantic and mammoth in size. A large stonehenge, so big that it’s " +
                                 "construction is unfathomable. Inside the circle made by the huge pillars of stone lay a fortified room.<l><l>" +
                                 "The intelligent life-form is far too advanced than I imagined. Placed away from the reach of any unintelligent " +
-                                "creatures was another treasure chest. The whole room was locked by a door that had the password \"Stonehenge\". " +
-                                "Separated from the door by an intricately arranged system of rotating platforms that had lava underneath. " +
+                                "creatures was another treasure chest. The whole room was locked by a door that had the password 18- " +
+                                "the number of pillars in the stonehenge. Separated from the door by an intricately " +
+                                "arranged system of rotating platforms that had lava underneath. " +
                                 "Mistime a jump and you’re cooked meat. The treasure chest possessed the key- an Arkenstone. Along with the " +
                                 "artifact, was also another book. The book says that this small stone is the most integral part of the Portal.<l><l>" +
                                 "I’m starting to believe that the whole idea might actually be true. That the early civilization did have a " +
@@ -143,9 +144,9 @@ public class LostJournalIntegration extends BaseComponentSystem {
                 Arrays.asList(
                         createTitleParagraph("Exploration Log- Shattered Temple of Hope"),
                         createTextParagraph("The tea was actually the letter T. Amidst the golden sand lay a T shaped entrance made of " +
-                                "brown dirt, to a solemn temple. The password to the door was indeed solemn.<l><l>" +
+                                "brown dirt, to a solemn temple. The password to the door was a reference to the brown dirt.<l><l>" +
                                 "My awe for the level of advancement that the inhabitants of this planet had reached, " +
-                                "has reached a new high. The tunnel led to a temple that possessed another chest at its end. " +
+                                "has attained a new high. The tunnel led to a temple that possessed another chest at its end. " +
                                 "The path to the treasure was however blocked by a series of fireball launchers and swinging blades. " +
                                 "The treasure chest consisted of Shattered Plasma the element for the construction of the foundation of the portal.<l><l>" +
                                 "I wonder how the portal might actually work. Would it be like my Antrum Sabre that became dysfunctional?<l><l>")
