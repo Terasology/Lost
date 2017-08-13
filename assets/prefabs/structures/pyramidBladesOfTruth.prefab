@@ -3,7 +3,6 @@
   },
   "SpawnBlockRegions": {
     "regionsToFill": [
-      { "blockType": "AdventureAssets:swingingbladeroot.BACK", "region": { "min": [0, 9, 26], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:swingingbladeroot.FRONT", "region": { "min": [0, 9, 14], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:swingingbladeroot.FRONT", "region": { "min": [0, 9, 16], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:swingingbladeroot.FRONT", "region": { "min": [0, 9, 18], "size": [1, 1, 1]}},
@@ -82,6 +81,12 @@
       { "blockType": "core:hardStone", "region": { "min": [-5, 2, 12], "size": [1, 8, 18]}},
       { "blockType": "core:hardStone", "region": { "min": [-5, 10, 12], "size": [11, 1, 18]}},
       { "blockType": "core:hardStone", "region": { "min": [5, 2, 12], "size": [1, 8, 18]}},
+      { "blockType": "core:hardStone", "region": { "min": [-2, 2, 27], "size": [2, 2, 1]}},
+      { "blockType": "core:hardStone", "region": { "min": [-2, 4, 27], "size": [5, 2, 1]}},
+      { "blockType": "core:hardStone", "region": { "min": [1, 2, 27], "size": [2, 2, 1]}},
+      { "blockType": "core:hardStone", "region": { "min": [-2, 2, 28], "size": [1, 3, 2]}},
+      { "blockType": "core:hardStone", "region": { "min": [-2, 5, 28], "size": [5, 1, 2]}},
+      { "blockType": "core:hardStone", "region": { "min": [2, 2, 28], "size": [1, 3, 2]}},
       { "blockType": "core:hardStone", "region": { "min": [-5, 1, 30], "size": [11, 10, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 2, 1], "size": [43, 21, 1]}},
       { "blockType": "engine:air", "region": { "min": [0, 1, 1], "size": [1, 1, 1]}},
@@ -127,7 +132,7 @@
       { "blockType": "engine:air", "region": { "min": [11, 12, 12], "size": [11, 1, 21]}},
       { "blockType": "engine:air", "region": { "min": [-21, 13, 13], "size": [12, 1, 19]}},
       { "blockType": "engine:air", "region": { "min": [-21, 14, 13], "size": [43, 9, 1]}},
-      { "blockType": "engine:air", "region": { "min": [-4, 2, 13], "size": [9, 7, 16]}},
+      { "blockType": "engine:air", "region": { "min": [-4, 2, 13], "size": [9, 7, 14]}},
       { "blockType": "engine:air", "region": { "min": [-3, 9, 13], "size": [7, 1, 1]}},
       { "blockType": "engine:air", "region": { "min": [10, 13, 13], "size": [12, 1, 19]}},
       { "blockType": "engine:air", "region": { "min": [-21, 14, 14], "size": [13, 1, 17]}},
@@ -176,17 +181,16 @@
       { "blockType": "engine:air", "region": { "min": [-3, 9, 24], "size": [3, 1, 1]}},
       { "blockType": "engine:air", "region": { "min": [1, 9, 24], "size": [3, 1, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 20, 25], "size": [43, 3, 1]}},
-      { "blockType": "engine:air", "region": { "min": [-3, 9, 25], "size": [7, 1, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-3, 9, 25], "size": [7, 1, 4]}},
       { "blockType": "engine:air", "region": { "min": [-21, 19, 26], "size": [43, 4, 1]}},
-      { "blockType": "engine:air", "region": { "min": [-3, 9, 26], "size": [3, 1, 1]}},
-      { "blockType": "engine:air", "region": { "min": [1, 9, 26], "size": [3, 1, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 18, 27], "size": [43, 5, 1]}},
-      { "blockType": "engine:air", "region": { "min": [-3, 9, 27], "size": [7, 1, 2]}},
+      { "blockType": "engine:air", "region": { "min": [-4, 2, 27], "size": [2, 4, 3]}},
+      { "blockType": "engine:air", "region": { "min": [-4, 6, 27], "size": [9, 3, 3]}},
+      { "blockType": "engine:air", "region": { "min": [0, 2, 27], "size": [1, 2, 1]}},
+      { "blockType": "engine:air", "region": { "min": [3, 2, 27], "size": [2, 4, 3]}},
       { "blockType": "engine:air", "region": { "min": [-21, 17, 28], "size": [43, 6, 1]}},
+      { "blockType": "engine:air", "region": { "min": [-1, 2, 28], "size": [3, 3, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 16, 29], "size": [43, 7, 1]}},
-      { "blockType": "engine:air", "region": { "min": [-4, 2, 29], "size": [3, 3, 1]}},
-      { "blockType": "engine:air", "region": { "min": [-4, 5, 29], "size": [9, 4, 1]}},
-      { "blockType": "engine:air", "region": { "min": [2, 2, 29], "size": [3, 3, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 15, 30], "size": [43, 8, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 14, 31], "size": [43, 9, 1]}},
       { "blockType": "engine:air", "region": { "min": [-21, 13, 32], "size": [43, 10, 1]}},
@@ -203,6 +207,58 @@
       { "blockType": "engine:air", "region": { "min": [-21, 2, 43], "size": [43, 21, 1]}}
     ]
   },
+  "AddSwingingBlade": {
+    "swingingBladesToSpawn": [
+      {
+        "position": [0, 9, 14],
+        "rotation": [-0.1302525, 0.69500405, 0.13025095, 0.69500965],
+        "amplitude": 0.4,
+        "timePeriod": 4.0,
+        "offset": 3.0,
+        "isSwinging": true
+      },
+      {
+        "position": [0, 9, 16],
+        "rotation": [-0.089180715, 0.70145506, 0.08917906, 0.701466],
+        "amplitude": 0.4,
+        "timePeriod": 4.0,
+        "offset": 2.5,
+        "isSwinging": true
+      },
+      {
+        "position": [0, 9, 18],
+        "rotation": [-0.025937587, 0.70662934, 0.025937948, 0.70663244],
+        "amplitude": 0.4,
+        "timePeriod": 4.0,
+        "offset": 2.0,
+        "isSwinging": true
+      },
+      {
+        "position": [0, 9, 24],
+        "rotation": [0.13598605, 0.6939058, -0.1359848, 0.6939097],
+        "amplitude": 0.4,
+        "timePeriod": 4.0,
+        "offset": 0.5,
+        "isSwinging": true
+      },
+      {
+        "position": [0, 9, 20],
+        "rotation": [0.04385439, 0.7057395, -0.043854747, 0.70575166],
+        "amplitude": 0.4,
+        "timePeriod": 4.0,
+        "offset": 1.5,
+        "isSwinging": true
+      },
+      {
+        "position": [0, 9, 22],
+        "rotation": [0.10260157, 0.6996216, -0.10260153, 0.6996252],
+        "amplitude": 0.4,
+        "timePeriod": 4.0,
+        "offset": 1.0,
+        "isSwinging": true
+      }
+    ]
+  },
   "AddItemsToChest": {
     "chestsToFill": [
       {
@@ -211,66 +267,6 @@
           {"slot": 0, "blockFamiliy": "Lost:FacadeOfTruth", "amount": 7},
           {"slot": 1, "itemPrefab": "Lost:facadeOfTruthBook"}
         ]
-      }
-    ]
-  },
-  "AddSwingingBlade": {
-    "swingingBladesToSpawn": [
-      {
-        "position": [0, 9, 14],
-        "rotation": [0.12338807, 0.69627064, -0.12339368, 0.6962446],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 3.0,
-        "isSwinging": true
-      },
-      {
-        "position": [0, 9, 24],
-        "rotation": [-0.13911724, 0.6932846, 0.13911664, 0.69328886],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 0.5,
-        "isSwinging": true
-      },
-      {
-        "position": [0, 9, 20],
-        "rotation": [-0.05894018, 0.7046524, 0.058941714, 0.70463955],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 1.5,
-        "isSwinging": true
-      },
-      {
-        "position": [0, 9, 22],
-        "rotation": [-0.11291624, 0.69803756, 0.11291742, 0.698028],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 1.0,
-        "isSwinging": true
-      },
-      {
-        "position": [0, 9, 16],
-        "rotation": [0.07611573, 0.7030053, -0.07611786, 0.7029908],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 2.5,
-        "isSwinging": true
-      },
-      {
-        "position": [0, 9, 18],
-        "rotation": [0.009831267, 0.70704055, -0.009830238, 0.7070364],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 2.0,
-        "isSwinging": true
-      },
-      {
-        "position": [0, 9, 26],
-        "rotation": [-0.13160019, 0.6947628, 0.13160445, 0.69474185],
-        "amplitude": 0.4,
-        "timePeriod": 4.0,
-        "offset": 0.0,
-        "isSwinging": true
       }
     ]
   }
