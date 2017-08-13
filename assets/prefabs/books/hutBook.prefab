@@ -1,0 +1,22 @@
+{
+  "parent" : "engine:iconItem",
+  "Item" : {
+    "icon" : "engine:items#RedBook",
+    "usage" : "ON_USER"
+  },
+  "DisplayName" : {
+    "name" : "ITWTSD Book"
+  },
+  "Book" : {
+    "pages" : [
+      "Inside the well.<l>The secrets dwell."
+    ],
+    "tint" : [255, 0, 0, 255],
+    "readOnly" : true,
+    "title" : "ITWTSD"
+  },
+  "InteractionTarget": {},
+  "InteractionScreen": {
+    "screen": "Books:BookScreen"
+  }
+}
