@@ -18,7 +18,7 @@
     {"id": "EquipmentSmithing", "minVersion": "1.0.0"},
     {"id": "Alchemy", "minVersion": "1.0.0"},
     {"id": "Cooking", "minVersion": "1.0.0"},
-    {"id": "SimpleFarming", "minVersion": "1.0.0"},
+    {"id": "SimpleFarming", "minVersion": "2.0.0"},
     {"id": "Hunger", "minVersion": "1.0.0"},
     {"id": "Thirst", "minVersion": "1.0.0"},
     {"id": "ChrisVolume1OST", "minVersion": "0.2.1"},
