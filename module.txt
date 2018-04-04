@@ -11,7 +11,7 @@
         {"id": "Core", "minVersion": "2.0.0"},
         {"id": "Journal", "minVersion": "0.1.0"},
         {"id": "Books", "minVersion": "1.0.0"},
-        {"id": "WildAnimals", "minVersion": "0.1.0"},
+        {"id": "WildAnimals", "minVersion": "0.2.0"},
         {"id": "WorldlyTooltip", "minVersion": "1.0.0"},
         {"id": "WoodCrafting", "minVersion": "1.0.0"},
         {"id": "StoneCrafting", "minVersion": "1.0.0"},
