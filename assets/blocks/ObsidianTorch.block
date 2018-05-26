@@ -1,6 +1,6 @@
 {
   "displayName": "Obsidian Torch",
-  "rotation": "attachedToSurface",
+  "family": "attachedToSurface",
   "sides": {
     "shape": "TorchWall"
   },
