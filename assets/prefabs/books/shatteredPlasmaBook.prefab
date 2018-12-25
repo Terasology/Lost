@@ -10,7 +10,7 @@
   "Book" : {
     "pages" : [
       "I don’t know how long will this stay intact and endure the whims of nature. The final part of the Portal is probably the most delicate and definitely the largest. Unlike other components, this can be crafted relatively easily. The three ingredients are kept along with this book in the treasure chest- the sand, glass and grass of Spero. These have to be forged in the kiln of Tudal.",
-      "<f engine:title>The Kiln of Tudal-</f><l> This is vital for forging the shattered plasma, which serves as the foundation of the portal. This can be constructed by forming a 3x3 grid of clay and sand."
+      "<f engine:NotoSans-Regular-Title>The Kiln of Tudal-</f><l> This is vital for forging the shattered plasma, which serves as the foundation of the portal. This can be constructed by forming a 3x3 grid of clay and sand."
     ],
     "tint" : [255, 0, 0, 255],
     "readOnly" : true,

@@ -195,7 +195,7 @@ public class LostJournalIntegration extends BaseComponentSystem {
     }
 
     private ParagraphData createTitleParagraph(String title) {
-        return HTMLLikeParser.parseHTMLLikeParagraph(centerRenderStyle, "<f engine:title>" + title + "</f>");
+        return HTMLLikeParser.parseHTMLLikeParagraph(centerRenderStyle, "<f engine:NotoSans-Regular-Title>" + title + "</f>");
     }
 
     @ReceiveEvent
