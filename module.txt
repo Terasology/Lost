@@ -1,6 +1,6 @@
 {
     "id" : "Lost",
-    "version" : "0.1.1-SNAPSHOT",
+    "version" : "0.1.2-SNAPSHOT",
     "author" : "nihal111",
     "displayName" : "Lost",
     "description" : "Are you truly lost? Will you ever return home?",
@@ -9,6 +9,7 @@
         {"id": "DamagingBlocks", "minVersion" : "0.2.0"},
         {"id": "Scenario", "minVersion": "0.1.0"},
         {"id": "Core", "minVersion": "2.0.0"},
+        {"id": "CoreBlocks", "minVersion": "1.0.0"},
         {"id": "Journal", "minVersion": "0.1.0"},
         {"id": "Books", "minVersion": "1.0.0"},
         {"id": "WildAnimals", "minVersion": "0.2.0"},
