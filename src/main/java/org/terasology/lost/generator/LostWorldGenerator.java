@@ -27,12 +27,7 @@ import org.terasology.anotherWorld.decorator.layering.DefaultLayersDefinition;
 import org.terasology.anotherWorld.decorator.layering.LayeringConfig;
 import org.terasology.anotherWorld.decorator.layering.LayeringDecorator;
 import org.terasology.anotherWorld.decorator.ore.OreDecorator;
-import org.terasology.anotherWorld.generation.BiomeProvider;
-import org.terasology.anotherWorld.generation.HillynessProvider;
-import org.terasology.anotherWorld.generation.HumidityProvider;
-import org.terasology.anotherWorld.generation.PerlinSurfaceHeightProvider;
-import org.terasology.anotherWorld.generation.TemperatureProvider;
-import org.terasology.anotherWorld.generation.TerrainVariationProvider;
+import org.terasology.anotherWorld.generation.*;
 import org.terasology.anotherWorld.util.PDist;
 import org.terasology.anotherWorld.util.Provider;
 import org.terasology.anotherWorld.util.alpha.IdentityAlphaFunction;
@@ -44,11 +39,7 @@ import org.terasology.climateConditions.ConditionsBaseField;
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
 import org.terasology.core.world.generator.facetProviders.SurfaceToDensityProvider;
 import org.terasology.engine.SimpleUri;
-import org.terasology.gf.generator.BushProvider;
-import org.terasology.gf.generator.FloraFeatureGenerator;
-import org.terasology.gf.generator.FloraProvider;
-import org.terasology.gf.generator.FoliageProvider;
-import org.terasology.gf.generator.TreeProvider;
+import org.terasology.gf.generator.*;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.registry.In;
 import org.terasology.world.block.Block;
@@ -148,15 +139,15 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
 
         blockManager = CoreRegistry.get(BlockManager.class);
 
-        final Block mantle = blockManager.getBlock("Core:MantleStone");
-        final Block stone = blockManager.getBlock("Core:Stone");
-        final Block water = blockManager.getBlock("Core:Water");
-        final Block sand = blockManager.getBlock("Core:Sand");
+        final Block mantle = blockManager.getBlock("CoreBlocks:MantleStone");
+        final Block stone = blockManager.getBlock("CoreBlocks:Stone");
+        final Block water = blockManager.getBlock("CoreBlocks:Water");
+        final Block sand = blockManager.getBlock("CoreBlocks:Sand");
         final Block clay = blockManager.getBlock("Woodcrafting:ClayStone");
-        final Block dirt = blockManager.getBlock("Core:Dirt");
-        final Block grass = blockManager.getBlock("Core:Grass");
-        final Block snow = blockManager.getBlock("Core:Snow");
-        final Block ice = blockManager.getBlock("Core:Ice");
+        final Block dirt = blockManager.getBlock("CoreBlocks:Dirt");
+        final Block grass = blockManager.getBlock("CoreBlocks:Grass");
+        final Block snow = blockManager.getBlock("CoreBlocks:Snow");
+        final Block ice = blockManager.getBlock("CoreBlocks:Ice");
 
         // Setup biome terrain layers
         setupLayers(mantle, water, stone, sand, dirt, grass, snow, ice, seaLevel);
