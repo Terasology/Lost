@@ -8,7 +8,7 @@
         {"id": "AdventureAssets", "minVersion": "0.1.0"},
         {"id": "DamagingBlocks", "minVersion" : "0.2.0"},
         {"id": "Scenario", "minVersion": "0.1.0"},
-        {"id": "Core", "minVersion": "2.0.0"},
+        {"id": "Core", "minVersion": "3.0.0"},
         {"id": "CoreBlocks", "minVersion": "1.0.0"},
         {"id": "Journal", "minVersion": "0.1.0"},
         {"id": "Books", "minVersion": "1.0.0"},
