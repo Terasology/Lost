@@ -48,7 +48,7 @@
         "position": [-1, 1, 5],
         "items": [
           {"slot": 5, "blockFamiliy": "CoreAssets:Plank", "amount": 50},
-          {"slot": 12, "itemPrefab": "Core:Pickaxe"},
+          {"slot": 12, "itemPrefab": "CoreAssets:Pickaxe"},
           {"slot": 17, "itemPrefab": "Lost:hutBook"}
         ]
       }
