@@ -3,7 +3,7 @@
   },
   "SpawnBlockRegions": {
     "regionsToFill": [
-      { "blockType": "CoreBlocks:CobbleStone", "region": { "min": [-1, 1, 1], "size": [3, 12, 3]}}
+      { "blockType": "CoreAssets:CobbleStone", "region": { "min": [-1, 1, 1], "size": [3, 12, 3]}}
     ]
   }
 }
