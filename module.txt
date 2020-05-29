@@ -1,6 +1,6 @@
 {
     "id": "Lost",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "nihal111",
     "displayName": "Lost",
     "description": "Are you truly lost? Will you ever return home?",
@@ -16,6 +16,7 @@
         { "id": "ClimateConditions", "minVersion": "1.0.0" },
         { "id": "CoreAdvancedAssets", "minVersion": "1.1.0" },
         { "id": "CoreAssets", "minVersion": "2.0.1" },
+        { "id": "CoreRendering", "minVersion": "1.0.0" },
         { "id": "CoreWorlds", "minVersion": "1.1.0" },
         { "id": "DamagingBlocks", "minVersion": "1.0.0" },
         { "id": "EquipmentSmithing", "minVersion": "1.1.0" },
