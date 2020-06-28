@@ -3,7 +3,6 @@
   },
   "SpawnBlockRegions": {
     "regionsToFill": [
-      { "blockType": "CoreAdvancedAssets:Chest.FRONT", "region": { "min": [0, -3, 4], "size": [1, 1, 1]}},
       { "blockType": "CoreAssets:CobbleStone", "region": { "min": [-2, 0, 1], "size": [1, 1, 1]}},
       { "blockType": "CoreAssets:CobbleStone", "region": { "min": [2, 0, 1], "size": [1, 1, 1]}},
       { "blockType": "CoreAssets:CobbleStone", "region": { "min": [-2, 0, 5], "size": [1, 1, 1]}},
@@ -56,16 +55,6 @@
       { "blockType": "engine:air", "region": { "min": [-2, 6, 4], "size": [5, 1, 1]}},
       { "blockType": "engine:air", "region": { "min": [-2, 5, 5], "size": [5, 2, 1]}},
       { "blockType": "engine:air", "region": { "min": [-1, 2, 5], "size": [3, 2, 1]}}
-    ]
-  },
-  "AddItemsToChest": {
-    "chestsToFill": [
-      {
-        "position": [0, -3, 4],
-        "items": [
-          {"slot": 0, "itemPrefab": "Lost:secretsBook"}
-        ]
-      }
     ]
   }
 }

@@ -15,15 +15,19 @@
  */
 package org.terasology.lost;
 
+import org.terasology.assets.management.AssetManager;
+import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
+import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.inventory.InventoryComponent;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
+import org.terasology.math.Side;
 import org.terasology.registry.In;
 import org.terasology.biomesAPI.OnBiomeChangedEvent;
 import org.terasology.logic.console.Console;
@@ -41,9 +45,14 @@ import org.terasology.polyworld.graph.Graph;
 import org.terasology.polyworld.graph.GraphFacet;
 import org.terasology.polyworld.graph.GraphFacetProvider;
 import org.terasology.polyworld.biome.WhittakerBiomeModelFacet;
+import org.terasology.world.WorldProvider;
+import org.terasology.world.block.Block;
+import org.terasology.world.block.BlockUri;
 import org.terasology.world.generation.Region;
 import org.terasology.lost.generator.*;
 import org.terasology.math.geom.ImmutableVector2f;
+import org.terasology.structureTemplates.events.SpawnStructureEvent;
+import org.terasology.structureTemplates.util.BlockRegionTransform;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class OnSpawnSystem extends BaseComponentSystem {
@@ -53,10 +62,16 @@ public class OnSpawnSystem extends BaseComponentSystem {
     private InventoryManager inventoryManager;
     @In
     private Console console;
-
+    @In
+    private AssetManager assetManager;
+    @In
+    private WorldProvider worldProvider;
     @ReceiveEvent
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, InventoryComponent inventory) {
         inventoryManager.giveItem(player, null, entityManager.create("Lost:antrumSabre"));
+        ProgressTrackingComponent progressTrackingComponent = new ProgressTrackingComponent();
+        progressTrackingComponent.addLevel("Grassland","Lost:well");
+        player.addComponent(progressTrackingComponent);
     }
 
     @ReceiveEvent
@@ -65,7 +80,7 @@ public class OnSpawnSystem extends BaseComponentSystem {
         console.addMessage("NEW:"+event.getNewBiome().getDisplayName());
         LocationComponent loc = player.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition();
-
+        ProgressTrackingComponent progressTrackingComponent = player.getComponent(ProgressTrackingComponent.class);
         int searchRadius = 0;
         Vector3i ext = new Vector3i(searchRadius, 0, searchRadius);
         Vector3i desiredPos = new Vector3i(pos.getX(), 1, pos.getZ());
@@ -80,6 +95,7 @@ public class OnSpawnSystem extends BaseComponentSystem {
         Vector2f pos2d = new Vector2f(pos.getX(), pos.getZ());
         double d = 1000000;
         ImmutableVector2f center = null;
+        String biomeName = null;
         for (Graph g : graphs.getAllGraphs()) {
             BiomeModel biomeModel = model.get(g);
             for (org.terasology.polyworld.graph.Region r : g.getRegions()) {
@@ -89,11 +105,32 @@ public class OnSpawnSystem extends BaseComponentSystem {
                     if(temp<d){
                         d=temp;
                         center=r.getCenter();
+                        biomeName=biome.getDisplayName();
                     }
                 }
 
             }
         }
         console.addMessage(center.toString());
+        if(progressTrackingComponent.getLevelPrefab(biomeName).contains("well")){
+            progressTrackingComponent.foundWell = true;
+        }
+
+        if(progressTrackingComponent.isWellFound()) {
+            Prefab prefab = assetManager.getAsset(progressTrackingComponent.getLevelPrefab(biomeName), Prefab.class).orElse(null);
+            EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
+            EntityRef item = entityBuilder.build();
+            int tempy = (int) Math.ceil(pos.y) + 20;
+            while (true) {
+                if (!(worldProvider.getBlock((int) Math.ceil(center.getX()), tempy, (int) Math.ceil(center.getY())).getURI().toString().contains("air") || worldProvider.getBlock((int) Math.ceil(center.getX()), tempy, (int) Math.ceil(center.getY())).getURI().toString().contains("air"))) {
+                    break;
+                }
+                tempy--;
+            }
+            Vector3i vector3i = new Vector3i((int) Math.ceil(center.getX()), tempy, (int) Math.ceil(center.getY()));
+            BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT, vector3i);
+            item.send(new SpawnStructureEvent(b));
+        }
+        player.saveComponent(progressTrackingComponent);
     }
 }
