@@ -16,6 +16,7 @@
 package org.terasology.lost;
 
 import org.terasology.assets.management.AssetManager;
+import org.terasology.biomesAPI.BiomeManager;
 import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -66,18 +67,34 @@ public class OnSpawnSystem extends BaseComponentSystem {
     private AssetManager assetManager;
     @In
     private WorldProvider worldProvider;
+
     @ReceiveEvent
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, InventoryComponent inventory) {
         inventoryManager.giveItem(player, null, entityManager.create("Lost:antrumSabre"));
         ProgressTrackingComponent progressTrackingComponent = new ProgressTrackingComponent();
-        progressTrackingComponent.addLevel("Grassland","Lost:well");
+        progressTrackingComponent.addLevel("Grassland", "Lost:well");
+        progressTrackingComponent.addLevel("Tundra", "Lost:well");
+        progressTrackingComponent.addLevel("Bare", "Lost:well");
+        progressTrackingComponent.addLevel("Scorched", "Lost:well");
+        progressTrackingComponent.addLevel("Taiga", "Lost:well");
+        progressTrackingComponent.addLevel("Temperate desert", "Lost:well");
+        progressTrackingComponent.addLevel("Temperate rain forest", "Lost:well");
+        progressTrackingComponent.addLevel("Temperate deciduous forest", "Lost:well");
+        progressTrackingComponent.addLevel("Subtropical desert", "Lost:well");
+        progressTrackingComponent.addLevel("Shrubland", "Lost:well");
+        progressTrackingComponent.addLevel("Marsh", "Lost:well");
+        progressTrackingComponent.addLevel("Tropical rain forest", "Lost:well");
+        progressTrackingComponent.addLevel("Tropical seasonal forest", "Lost:well");
+        progressTrackingComponent.addLevel("Lakeshore", "Lost:well");
+        progressTrackingComponent.addLevel("Coast", "Lost:well");
+        progressTrackingComponent.addLevel("Ice", "Lost:well");
         player.addComponent(progressTrackingComponent);
     }
 
     @ReceiveEvent
     public void onBiomeChange(OnBiomeChangedEvent event, EntityRef player) {
-        console.addMessage("OLD:"+event.getOldBiome().getDisplayName());
-        console.addMessage("NEW:"+event.getNewBiome().getDisplayName());
+        console.addMessage("OLD:" + event.getOldBiome().getDisplayName());
+        console.addMessage("NEW:" + event.getNewBiome().getDisplayName());
         LocationComponent loc = player.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition();
         ProgressTrackingComponent progressTrackingComponent = player.getComponent(ProgressTrackingComponent.class);
@@ -87,7 +104,6 @@ public class OnSpawnSystem extends BaseComponentSystem {
 
         // try and find somewhere in this region a spot to land
         Region3i spawnArea = Region3i.createFromCenterExtents(desiredPos, ext);
-        console.addMessage(spawnArea.size().toString());
         Region worldRegion = LostWorldGenerator.world.getWorldData(spawnArea);
 
         GraphFacet graphs = worldRegion.getFacet(GraphFacet.class);
@@ -100,24 +116,25 @@ public class OnSpawnSystem extends BaseComponentSystem {
             BiomeModel biomeModel = model.get(g);
             for (org.terasology.polyworld.graph.Region r : g.getRegions()) {
                 WhittakerBiome biome = biomeModel.getBiome(r);
-                if(biome.getDisplayName().contains(event.getNewBiome().getDisplayName())){
-                    double temp = Math.pow(pos2d.x-pos.getX(),2)+Math.pow(pos2d.y-pos.getZ(),2);
-                    if(temp<d){
-                        d=temp;
-                        center=r.getCenter();
-                        biomeName=biome.getDisplayName();
+                if (biome.getDisplayName().contains(event.getNewBiome().getDisplayName())) {
+                    double temp = Math.pow(pos2d.x - pos.getX(), 2) + Math.pow(pos2d.y - pos.getZ(), 2);
+                    if (temp < d) {
+                        d = temp;
+                        center = r.getCenter();
+                        biomeName = biome.getDisplayName();
                     }
                 }
 
             }
         }
         console.addMessage(center.toString());
-        if(progressTrackingComponent.getLevelPrefab(biomeName).contains("well")){
+        if ((!progressTrackingComponent.isWellFound())&&progressTrackingComponent.getLevelPrefab(biomeName).contains("well")) {
             progressTrackingComponent.foundWell = true;
         }
 
-        if(progressTrackingComponent.isWellFound()) {
-            Prefab prefab = assetManager.getAsset(progressTrackingComponent.getLevelPrefab(biomeName), Prefab.class).orElse(null);
+        if (progressTrackingComponent.isWellFound()) {
+            Prefab prefab =
+                    assetManager.getAsset(progressTrackingComponent.getLevelPrefab(biomeName), Prefab.class).orElse(null);
             EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
             EntityRef item = entityBuilder.build();
             int tempy = (int) Math.ceil(pos.y) + 20;

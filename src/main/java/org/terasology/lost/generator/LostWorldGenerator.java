@@ -74,7 +74,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 .setSeaLevel(6)
                 .addProvider(new SeaLevelProvider(6))
                 .addProvider(new WorldRegionFacetProvider(maxCacheSize))
-                .addProvider(new GraphFacetProvider(maxCacheSize,2f,3))
+                .addProvider(new GraphFacetProvider(maxCacheSize,1f,2))
                 .addProvider(new WaterModelFacetProvider(maxCacheSize))
                 .addProvider(new ElevationModelFacetProvider(maxCacheSize))
                 .addProvider(new ElevationProvider())
