@@ -1,6 +1,8 @@
 {
   "StructureTemplate": {
   },
+  "NoConstructionAnimation": {
+  },
   "SpawnBlockRegions": {
     "regionsToFill": [
       { "blockType": "CoreAdvancedAssets:Chest.FRONT", "region": { "min": [-1, 1, 5], "size": [1, 1, 1]}},
