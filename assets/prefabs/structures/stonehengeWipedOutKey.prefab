@@ -1,8 +1,6 @@
 {
   "StructureTemplate": {
   },
-  "NoConstructionAnimation": {
-  },
   "SpawnBlockRegions": {
     "regionsToFill": [
       { "blockType": "AdventureAssets:WipeOutRoot.BACK", "region": { "min": [0, 1, 18], "size": [1, 1, 1]}},

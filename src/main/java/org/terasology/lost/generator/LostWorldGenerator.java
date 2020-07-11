@@ -75,7 +75,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         return new WorldBuilder(CoreRegistry.get(WorldGeneratorPluginLibrary.class))
                 .setSeaLevel(6)
                 .addProvider(new SeaLevelProvider(6))
-                .addProvider(new WorldRegionFacetProvider(maxCacheSize))
+                .addProvider(new WorldRegionFacetProvider(maxCacheSize,1))
                 .addProvider(new GraphFacetProvider(maxCacheSize, 0.1f, 3))
                 .addProvider(new WaterModelFacetProvider(maxCacheSize))
                 .addProvider(new ElevationModelFacetProvider(maxCacheSize))
@@ -99,7 +99,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         LocationComponent loc = entity.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition();
 
-        int searchRadius = 16;
+        int searchRadius = 500;
         Vector3i ext = new Vector3i(searchRadius, 1, searchRadius);
         Vector3i desiredPos = new Vector3i(pos.getX(), 1, pos.getZ());
 
@@ -117,6 +117,16 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
             BiomeModel biomeModel = model.get(g);
             for (org.terasology.polyworld.graph.Region r : g.getRegions()) {
                 WhittakerBiome biome = biomeModel.getBiome(r);
+                boolean flag = false;
+                for (org.terasology.polyworld.graph.Region neighbour : r.getNeighbors()) {
+                    if (biomeModel.getBiome(neighbour).equals(WhittakerBiome.OCEAN)) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) {
+                    continue;
+                }
                 if (!biome.equals(WhittakerBiome.OCEAN) && !biome.equals(WhittakerBiome.LAKE) && !biome.equals(WhittakerBiome.BEACH)) {
                     picker.offer(r.getCenter(), r);
                 }

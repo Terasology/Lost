@@ -1,8 +1,6 @@
 {
   "StructureTemplate": {
   },
-  "NoConstructionAnimation": {
-  },
   "SpawnBlockRegions": {
     "regionsToFill": [
       { "blockType": "AdventureAssets:FireballLauncherRoot.FRONT", "region": { "min": [5, -8, 20], "size": [1, 1, 1]}},
