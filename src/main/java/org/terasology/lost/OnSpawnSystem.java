@@ -95,7 +95,6 @@ public class OnSpawnSystem extends BaseComponentSystem {
 
     @ReceiveEvent
     public void onBiomeChange(OnBiomeChangedEvent event, EntityRef player) {
-        console.addMessage(event.getNewBiome().getDisplayName());
         LocationComponent loc = player.getComponent(LocationComponent.class);
         Vector3f playerLocation = loc.getWorldPosition();
         ProgressTrackingComponent progressTrackingComponent = player.getComponent(ProgressTrackingComponent.class);
@@ -158,13 +157,11 @@ public class OnSpawnSystem extends BaseComponentSystem {
             BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
                     spawnPosition);
             item.send(new SpawnStructureEvent(b));
-            console.addMessage(center.toString());
             Set<String> keySet = progressTrackingComponent.biomeToPrefab.keySet();
             for (String key : keySet) {
                 if (progressTrackingComponent.getLevelPrefab(key) != null && progressTrackingComponent.getLevelPrefab(key).equalsIgnoreCase(levelURI)) {
                     progressTrackingComponent.biomeToPrefab.put(key,null);
                 }
-                console.addMessage(progressTrackingComponent.biomeToPrefab.toString());
             }
         }
         player.saveComponent(progressTrackingComponent);
