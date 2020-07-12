@@ -56,6 +56,8 @@ import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.generation.facets.SurfaceHeightFacet;
 
+import java.util.Set;
+
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class OnSpawnSystem extends BaseComponentSystem {
     @In
@@ -131,13 +133,14 @@ public class OnSpawnSystem extends BaseComponentSystem {
 
             }
         }
-        if ((!progressTrackingComponent.isWellFound()) && progressTrackingComponent.getLevelPrefab(biomeName) != null && progressTrackingComponent.getLevelPrefab(biomeName).contains("well")) {
+        String levelURI = progressTrackingComponent.getLevelPrefab(biomeName);
+        if ((!progressTrackingComponent.isWellFound()) && levelURI != null && levelURI.contains("well")) {
             progressTrackingComponent.foundWell = true;
         }
 
-        if (progressTrackingComponent.isWellFound() && progressTrackingComponent.getLevelPrefab(biomeName) != null) {
+        if (progressTrackingComponent.isWellFound() && levelURI != null) {
             Prefab prefab =
-                    assetManager.getAsset(progressTrackingComponent.getLevelPrefab(biomeName), Prefab.class).orElse(null);
+                    assetManager.getAsset(levelURI, Prefab.class).orElse(null);
             EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
             EntityRef item = entityBuilder.build();
             // round center coordinates to Integers and iterate over the height to find land height
@@ -156,7 +159,13 @@ public class OnSpawnSystem extends BaseComponentSystem {
                     spawnPosition);
             item.send(new SpawnStructureEvent(b));
             console.addMessage(center.toString());
-            progressTrackingComponent.addLevel(biomeName, null);
+            Set<String> keySet = progressTrackingComponent.biomeToPrefab.keySet();
+            for (String key : keySet) {
+                if (progressTrackingComponent.getLevelPrefab(key) != null && progressTrackingComponent.getLevelPrefab(key).equalsIgnoreCase(levelURI)) {
+                    progressTrackingComponent.biomeToPrefab.put(key,null);
+                }
+                console.addMessage(progressTrackingComponent.biomeToPrefab.toString());
+            }
         }
         player.saveComponent(progressTrackingComponent);
     }
