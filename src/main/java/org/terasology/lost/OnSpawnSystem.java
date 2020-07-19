@@ -91,6 +91,27 @@ public class OnSpawnSystem extends BaseComponentSystem {
         progressTrackingComponent.addLevel("Coast", "Lost:well");
         progressTrackingComponent.addLevel("Beach", "Lost:well");
         player.addComponent(progressTrackingComponent);
+
+        LocationComponent loc = player.getComponent(LocationComponent.class);
+        Vector3f playerLocation = loc.getWorldPosition();
+        Prefab prefab =
+                assetManager.getAsset("Lost:hut", Prefab.class).orElse(null);
+        EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
+        EntityRef item = entityBuilder.build();
+        int x = (int) Math.round(playerLocation.getX()) + 5;
+        int y = (int) Math.round(playerLocation.getZ()) + 5;
+        int height = (int) Math.ceil(playerLocation.y) + 10;
+        while (true) {
+            String blockURI = worldProvider.getBlock(x, height, y).getURI().toString();
+            if (!(blockURI.contains("air") || blockURI.contains("Leaf") || blockURI.contains("Trunk") || blockURI.contains("Cactus"))) {
+                break;
+            }
+            height--;
+        }
+        Vector3i spawnPosition = new Vector3i(x, height, y);
+        BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
+                spawnPosition);
+        item.send(new SpawnStructureEvent(b));
     }
 
     @ReceiveEvent
