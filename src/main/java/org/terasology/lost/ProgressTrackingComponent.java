@@ -19,7 +19,9 @@ public class ProgressTrackingComponent implements Component {
         return foundWell;
     }
 
-    public void addLevel(String biome, String prefabName) {
-        biomeToPrefab.put(biome, prefabName);
+    public void addLevel(String prefabName,String...biomes) {
+        for(String biome:biomes){
+            biomeToPrefab.put(biome,prefabName);
+        }
     }
 }
