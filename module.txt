@@ -10,7 +10,6 @@
         { "id": "Books", "minVersion": "1.1.0" },
         { "id": "CommonWorld", "minVersion": "1.0.0" },
         { "id": "ChrisVolume1OST", "minVersion": "1.0.0" },
-        { "id": "ClimateConditions", "minVersion": "1.0.0" },
         { "id": "CoreAdvancedAssets", "minVersion": "1.1.0" },
         { "id": "CoreAssets", "minVersion": "2.0.1" },
         { "id": "CoreRendering", "minVersion": "1.0.0" },
@@ -20,7 +19,6 @@
         { "id": "Inventory", "minVersion": "1.1.0" },
         { "id": "Journal", "minVersion": "1.0.0" },
         { "id": "PolyWorld", "minVersion": "1.0.0" },
-        { "id": "Scenario", "minVersion": "1.0.0" },
         { "id": "StructureTemplates", "minVersion": "1.0.0"},
         { "id": "WorldlyTooltip", "minVersion": "1.2.0" }
     ],

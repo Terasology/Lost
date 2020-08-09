@@ -56,7 +56,9 @@ import org.terasology.world.generator.RegisterWorldGenerator;
 import org.terasology.world.generator.plugin.WorldGeneratorPluginLibrary;
 import org.terasology.world.viewer.picker.CirclePickerClosest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -99,7 +101,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         LocationComponent loc = entity.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition();
 
-        int searchRadius = 2500;
+        int searchRadius = 5000;
         Vector3i ext = new Vector3i(searchRadius, 1, searchRadius);
         Vector3i desiredPos = new Vector3i(pos.getX(), 1, pos.getZ());
 
@@ -117,26 +119,34 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
             BiomeModel biomeModel = model.get(g);
             for (org.terasology.polyworld.graph.Region r : g.getRegions()) {
                 WhittakerBiome biome = biomeModel.getBiome(r);
-                boolean flag = false;
-                boolean flag2 = false;
+                boolean ocean = false;
+                boolean forest = false;
+                boolean desert = false;
                 if(biomeModel.getBiome(r).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST)||biomeModel.getBiome(r).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST)||biomeModel.getBiome(r).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST)||biomeModel.getBiome(r).equals(WhittakerBiome.TROPICAL_RAIN_FOREST)){
-                    flag2 = true;
+                    forest = true;
                 }
                 for (org.terasology.polyworld.graph.Region neighbour : r.getNeighbors()) {
                     if (biomeModel.getBiome(neighbour).equals(WhittakerBiome.OCEAN)) {
-                        flag = true;
+                        ocean = true;
                         break;
                     }
-                    for (org.terasology.polyworld.graph.Region neighbour2 : neighbour.getNeighbors()) {
-                        if(biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST)||biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST)||biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST)||biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TROPICAL_RAIN_FOREST)){
-                            flag2 = true;
-                        }
+                    if (biomeModel.getBiome(neighbour).equals(WhittakerBiome.TEMPERATE_DESERT) || biomeModel.getBiome(neighbour).equals(WhittakerBiome.SUBTROPICAL_DESERT)) {
+                        desert = true;
                     }
                     if(biomeModel.getBiome(neighbour).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST)||biomeModel.getBiome(neighbour).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST)||biomeModel.getBiome(neighbour).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST)||biomeModel.getBiome(neighbour).equals(WhittakerBiome.TROPICAL_RAIN_FOREST)){
-                        flag2 = true;
+                        forest = true;
+                    }
+                    for (org.terasology.polyworld.graph.Region neighbour2 : neighbour.getNeighbors()) {
+                        if (biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST) || biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST) || biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST) || biomeModel.getBiome(neighbour2).equals(WhittakerBiome.TROPICAL_RAIN_FOREST)) {
+                            forest = true;
+                        }
+
+                        if (biomeModel.getBiome(neighbour).equals(WhittakerBiome.TEMPERATE_DESERT) || biomeModel.getBiome(neighbour).equals(WhittakerBiome.SUBTROPICAL_DESERT)) {
+                            desert = true;
+                        }
                     }
                 }
-                if (flag || !flag2) {
+                if (ocean || !forest || !desert) {
                     continue;
                 }
                 if (!biome.equals(WhittakerBiome.OCEAN) && !biome.equals(WhittakerBiome.LAKE) && !biome.equals(WhittakerBiome.BEACH)) {
@@ -155,4 +165,5 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         FixedSpawner spawner = new FixedSpawner(target.getX(), target.getY());
         return spawner.getSpawnPosition(getWorld(), entity);
     }
+
 }
