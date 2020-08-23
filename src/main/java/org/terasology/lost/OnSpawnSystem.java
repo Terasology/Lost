@@ -70,9 +70,10 @@ public class OnSpawnSystem extends BaseComponentSystem {
                 assetManager.getAsset("Lost:hut", Prefab.class).orElse(null);
         EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
         EntityRef item = entityBuilder.build();
-        int x = (int) Math.round(playerLocation.getX()) + 5;
-        int y = (int) Math.round(playerLocation.getZ()) + 5;
+        int x = (int) Math.round(playerLocation.getX()) - 15;
+        int y = (int) Math.round(playerLocation.getZ()) - 15;
         Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y), worldProvider), y);
+        progressTrackingComponent.hutPosition = spawnPosition;
         BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
                 spawnPosition);
         item.send(new SpawnStructureEvent(b));

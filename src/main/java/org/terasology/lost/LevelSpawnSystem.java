@@ -28,11 +28,11 @@ import org.terasology.polyworld.biome.WhittakerBiome;
 import org.terasology.polyworld.biome.WhittakerBiomeModelFacet;
 import org.terasology.polyworld.graph.Graph;
 import org.terasology.polyworld.graph.GraphFacet;
+import org.terasology.polyworld.graph.Region;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
-import org.terasology.world.generation.Region;
 
 import java.util.Set;
 
@@ -55,20 +55,23 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         Vector3f playerLocation = loc.getWorldPosition();
         ProgressTrackingComponent progressTrackingComponent = player.getComponent(ProgressTrackingComponent.class);
         // fetch nearest biome center
+        // Fetch graphs for the area nearby
         int searchRadius = 40;
         Vector3i extent = new Vector3i(searchRadius, 1, searchRadius);
         Vector3i desiredPos = new Vector3i(playerLocation.getX(), 1, playerLocation.getZ());
         Region3i searchArea = Region3i.createFromCenterExtents(desiredPos, extent);
-        Region worldRegion = LostWorldGenerator.world.getWorldData(searchArea);
+        org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchArea);
         GraphFacet graphs = worldRegion.getFacet(GraphFacet.class);
         WhittakerBiomeModelFacet model = worldRegion.getFacet(WhittakerBiomeModelFacet.class);
+        // Calculate nearest center(there can be multiple centers if adjacent regions are assigned the same biome) of
+        // the biome entered.
         Vector2f playerPosition2d = new Vector2f(playerLocation.getX(), playerLocation.getZ());
         double nearestCenterDistance = 0;
         ImmutableVector2f center = null;
         String biomeName = null;
         for (Graph g : graphs.getAllGraphs()) {
             BiomeModel biomeModel = model.get(g);
-            for (org.terasology.polyworld.graph.Region r : g.getRegions()) {
+            for (Region r : g.getRegions()) {
                 WhittakerBiome biome = biomeModel.getBiome(r);
                 if (biome.getDisplayName().contains(event.getNewBiome().getDisplayName())) {
                     double temp = playerPosition2d.distanceSquared(r.getCenter());
@@ -88,31 +91,34 @@ public class LevelSpawnSystem extends BaseComponentSystem {
 
             }
         }
+        boolean foundWellChanged = false;
         String levelURI = progressTrackingComponent.getLevelPrefab(biomeName);
-        if ((!progressTrackingComponent.isWellFound()) && levelURI != null && levelURI.contains("well")) {
+        if (levelURI != null && levelURI.contains("well")) {
             progressTrackingComponent.foundWell = true;
+            foundWellChanged = true;
         }
 
         if (progressTrackingComponent.isWellFound() && levelURI != null) {
-            Prefab prefab =
-                    assetManager.getAsset(levelURI, Prefab.class).orElse(null);
-            EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
-            EntityRef item = entityBuilder.build();
             // round center coordinates to Integers
             int x = (int) Math.ceil(center.getX());
             int y = (int) Math.ceil(center.getY());
             Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y),
                     worldProvider), y);
-            BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
-                    spawnPosition);
-            item.send(new SpawnStructureEvent(b));
-            Set<String> keySet = progressTrackingComponent.biomeToPrefab.keySet();
-            for (String key : keySet) {
-                if (progressTrackingComponent.getLevelPrefab(key) != null && progressTrackingComponent.getLevelPrefab(key).equalsIgnoreCase(levelURI)) {
-                    progressTrackingComponent.biomeToPrefab.put(key, null);
-                }
-            }
+            double distanceFromHut = progressTrackingComponent.hutPosition.distance(spawnPosition);
+            if (distanceFromHut > 30) {
+                //spawn level Structure Template
+                spawnLevel(levelURI, spawnPosition);
 
+                //prevent level just spawned from spawning more than once
+                Set<String> keySet = progressTrackingComponent.biomeToPrefab.keySet();
+                for (String key : keySet) {
+                    if (progressTrackingComponent.getLevelPrefab(key) != null && progressTrackingComponent.getLevelPrefab(key).equalsIgnoreCase(levelURI)) {
+                        progressTrackingComponent.biomeToPrefab.put(key, null);
+                    }
+                }
+            } else if (foundWellChanged) {
+                progressTrackingComponent.foundWell = false;
+            }
         }
         player.saveComponent(progressTrackingComponent);
     }
@@ -140,5 +146,15 @@ public class LevelSpawnSystem extends BaseComponentSystem {
             }
             return height;
         }
+    }
+
+    private void spawnLevel(String levelURI, Vector3i spawnPosition) {
+        Prefab prefab =
+                assetManager.getAsset(levelURI, Prefab.class).orElse(null);
+        EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
+        EntityRef item = entityBuilder.build();
+        BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
+                spawnPosition);
+        item.send(new SpawnStructureEvent(b));
     }
 }
