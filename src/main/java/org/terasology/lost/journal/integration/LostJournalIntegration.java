@@ -35,7 +35,7 @@ import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.inventory.events.InventorySlotChangedEvent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.registry.In;
-import org.terasology.rendering.nui.HorizontalAlign;
+import org.terasology.nui.HorizontalAlign;
 import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
 import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
 import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
