@@ -101,7 +101,8 @@ public class LevelSpawnSystem extends BaseComponentSystem {
             // round center coordinates to Integers
             int x = (int) Math.ceil(center.getX());
             int y = (int) Math.ceil(center.getY());
-            Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y),worldProvider), y);
+            Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y),
+                    worldProvider), y);
             BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
                     spawnPosition);
             item.send(new SpawnStructureEvent(b));
@@ -111,11 +112,12 @@ public class LevelSpawnSystem extends BaseComponentSystem {
                     progressTrackingComponent.biomeToPrefab.put(key, null);
                 }
             }
+
         }
         player.saveComponent(progressTrackingComponent);
     }
 
-    public static int getGroundHeight(int x, int y, int startHeight,WorldProvider worldProvider) {
+    public static int getGroundHeight(int x, int y, int startHeight, WorldProvider worldProvider) {
         String startBlockURI = worldProvider.getBlock(x, startHeight, y).getURI().toString();
         if (startBlockURI.contains("air") || startBlockURI.contains("Leaf") || startBlockURI.contains("Trunk") || startBlockURI.contains("Cactus")) {
             int height = startHeight;

@@ -36,6 +36,7 @@ import org.terasology.math.geom.Vector3i;
 import org.terasology.world.WorldProvider;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
+
 import static org.terasology.lost.LevelSpawnSystem.getGroundHeight;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
@@ -55,10 +56,12 @@ public class OnSpawnSystem extends BaseComponentSystem {
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, InventoryComponent inventory) {
         inventoryManager.giveItem(player, null, entityManager.create("Lost:antrumSabre"));
         ProgressTrackingComponent progressTrackingComponent = new ProgressTrackingComponent();
-        progressTrackingComponent.addLevel("Lost:well","Beach","Coast","Lakeshore");
-        progressTrackingComponent.addLevel("Lost:templePlasmaOfFire","Tropical seasonal forest","Tropical rain forest","Temperate deciduous forest","Temperate rain forest");
-        progressTrackingComponent.addLevel("Lost:stonehengeWipedOutKey","Marsh","Shrubland","Grassland");
-        progressTrackingComponent.addLevel("Lost:pyramidBladesOfTruth","Tundra","Bare","Scorched","Temperate desert","Subtropical desert");
+        progressTrackingComponent.addLevel("Lost:well", "Beach", "Coast", "Lakeshore");
+        progressTrackingComponent.addLevel("Lost:templePlasmaOfFire", "Tropical seasonal forest", "Tropical rain " +
+                "forest", "Temperate deciduous forest", "Temperate rain forest");
+        progressTrackingComponent.addLevel("Lost:stonehengeWipedOutKey", "Marsh", "Shrubland", "Grassland");
+        progressTrackingComponent.addLevel("Lost:pyramidBladesOfTruth", "Tundra", "Bare", "Scorched", "Temperate " +
+                "desert", "Subtropical desert");
         player.addComponent(progressTrackingComponent);
 
         LocationComponent loc = player.getComponent(LocationComponent.class);
@@ -69,9 +72,10 @@ public class OnSpawnSystem extends BaseComponentSystem {
         EntityRef item = entityBuilder.build();
         int x = (int) Math.round(playerLocation.getX()) + 5;
         int y = (int) Math.round(playerLocation.getZ()) + 5;
-        Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y),worldProvider), y);
+        Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y), worldProvider), y);
         BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
                 spawnPosition);
         item.send(new SpawnStructureEvent(b));
+
     }
 }
