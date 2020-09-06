@@ -9,9 +9,15 @@ import org.terasology.polyworld.graph.Region;
 
 import java.util.HashMap;
 
+/**
+ * Component to track a players progress during Lost
+ */
 public class ProgressTrackingComponent implements Component {
+    // Biomes mapped to the corresponding level URIs
     HashMap<String, String> biomeToPrefab = new HashMap<String, String>();
+    // To track whether the well has been discovered
     boolean foundWell = false;
+    // Stores the hut position once it is spawned to prevent overlapping with levels
     Vector3i hutPosition;
 
     public String getLevelPrefab(String biomeName) {

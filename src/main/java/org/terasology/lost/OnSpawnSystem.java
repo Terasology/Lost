@@ -16,28 +16,26 @@
 package org.terasology.lost;
 
 import org.terasology.assets.management.AssetManager;
-import org.terasology.entitySystem.entity.EntityBuilder;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.inventory.InventoryComponent;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
-import org.terasology.math.Side;
+import org.terasology.lost.generator.LostWorldGenerator;
+import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.logic.console.Console;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.world.WorldProvider;
-import org.terasology.structureTemplates.events.SpawnStructureEvent;
-import org.terasology.structureTemplates.util.BlockRegionTransform;
+import org.terasology.world.generation.facets.SurfaceHeightFacet;
 
-import static org.terasology.lost.LevelSpawnSystem.getGroundHeight;
+import static org.terasology.lost.LevelSpawnSystem.spawnLevel;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class OnSpawnSystem extends BaseComponentSystem {
@@ -56,27 +54,36 @@ public class OnSpawnSystem extends BaseComponentSystem {
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, InventoryComponent inventory) {
         inventoryManager.giveItem(player, null, entityManager.create("Lost:antrumSabre"));
         ProgressTrackingComponent progressTrackingComponent = new ProgressTrackingComponent();
+        // set level prefabs according to the biome they are supposed to spawn in
         progressTrackingComponent.addLevel("Lost:well", "Beach", "Coast", "Lakeshore");
         progressTrackingComponent.addLevel("Lost:templePlasmaOfFire", "Tropical seasonal forest", "Tropical rain " +
                 "forest", "Temperate deciduous forest", "Temperate rain forest");
         progressTrackingComponent.addLevel("Lost:stonehengeWipedOutKey", "Marsh", "Shrubland", "Grassland");
-        progressTrackingComponent.addLevel("Lost:pyramidBladesOfTruth", "Tundra", "Bare", "Scorched", "Temperate " +
+        progressTrackingComponent.addLevel("Lost:pyramidBladesOfTruth", "Bare", "Scorched", "Temperate " +
                 "desert", "Subtropical desert");
         player.addComponent(progressTrackingComponent);
 
         LocationComponent loc = player.getComponent(LocationComponent.class);
         Vector3f playerLocation = loc.getWorldPosition();
-        Prefab prefab =
-                assetManager.getAsset("Lost:hut", Prefab.class).orElse(null);
-        EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
-        EntityRef item = entityBuilder.build();
+        // radius such that hut is in the search area
+        int searchRadius = 25;
+
+        // create Region to be searched
+        Vector3i extent = new Vector3i(searchRadius, 1, searchRadius);
+        Vector3i desiredPos = new Vector3i(playerLocation.getX(), 1, playerLocation.getZ());
+        Region3i searchRegion = Region3i.createFromCenterExtents(desiredPos, extent);
+
+        // fetch surface height facet
+        org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
+        SurfaceHeightFacet surfaceHeightFacet = worldRegion.getFacet(SurfaceHeightFacet.class);
+
+        // spawn the hut a little far from the player
         int x = (int) Math.round(playerLocation.getX()) - 15;
         int y = (int) Math.round(playerLocation.getZ()) - 15;
-        Vector3i spawnPosition = new Vector3i(x, getGroundHeight(x, y, Math.round(playerLocation.y), worldProvider), y);
+        Vector3i spawnPosition = new Vector3i(x, surfaceHeightFacet.getWorld(x, y), y);
+        spawnLevel("Lost:hut", spawnPosition, assetManager, entityManager);
+        spawnPosition.y = 0;
         progressTrackingComponent.hutPosition = spawnPosition;
-        BlockRegionTransform b = BlockRegionTransform.createRotationThenMovement(Side.FRONT, Side.FRONT,
-                spawnPosition);
-        item.send(new SpawnStructureEvent(b));
 
     }
 }
