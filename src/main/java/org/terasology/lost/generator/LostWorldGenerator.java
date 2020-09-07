@@ -15,6 +15,9 @@
  */
 package org.terasology.lost.generator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.terasology.biomesAPI.Biome;
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
 import org.terasology.core.world.generator.rasterizers.FloraRasterizer;
 import org.terasology.core.world.generator.rasterizers.TreeRasterizer;
@@ -41,6 +44,7 @@ import org.terasology.polyworld.flora.TreeProvider;
 import org.terasology.polyworld.graph.Graph;
 import org.terasology.polyworld.graph.GraphFacet;
 import org.terasology.polyworld.graph.GraphFacetProvider;
+import org.terasology.polyworld.graph.Region;
 import org.terasology.polyworld.moisture.MoistureModelFacetProvider;
 import org.terasology.polyworld.raster.RiverRasterizer;
 import org.terasology.polyworld.raster.WhittakerRasterizer;
@@ -48,22 +52,22 @@ import org.terasology.polyworld.rivers.RiverModelFacetProvider;
 import org.terasology.polyworld.rp.WorldRegionFacetProvider;
 import org.terasology.polyworld.water.WaterModelFacetProvider;
 import org.terasology.registry.CoreRegistry;
+import org.terasology.registry.In;
 import org.terasology.world.generation.BaseFacetedWorldGenerator;
-import org.terasology.world.generation.Region;
 import org.terasology.world.generation.WorldBuilder;
 import org.terasology.world.generation.World;
 import org.terasology.world.generator.RegisterWorldGenerator;
 import org.terasology.world.generator.plugin.WorldGeneratorPluginLibrary;
 import org.terasology.world.viewer.picker.CirclePickerClosest;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 @RegisterWorldGenerator(id = "lost", displayName = "Lost", description = "Generates the world for playing the 'Lost' " +
         "exploration world.")
 public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     public static World world;
+    private static final Logger logger = LoggerFactory.getLogger(LostWorldGenerator.class);
+    // Radius to search for a suitable spawn location
+    private final int searchRadius = 7000;
 
     public LostWorldGenerator(SimpleUri uri) {
         super(uri);
@@ -76,7 +80,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 .setSeaLevel(6)
                 .addProvider(new SeaLevelProvider(6))
                 .addProvider(new WorldRegionFacetProvider(maxCacheSize, 1f))
-                .addProvider(new GraphFacetProvider(maxCacheSize, 0.1f, 3))
+                .addProvider(new GraphFacetProvider(maxCacheSize, 0.1f, 2))
                 .addProvider(new WaterModelFacetProvider(maxCacheSize))
                 .addProvider(new ElevationModelFacetProvider(maxCacheSize))
                 .addProvider(new ElevationProvider())
@@ -90,41 +94,60 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 .addRasterizer(new WhittakerRasterizer())
                 .addRasterizer(new RiverRasterizer())
                 .addRasterizer(new TreeRasterizer())
-                .addRasterizer(new FloraRasterizer());
-//                .addPlugins();
+                .addRasterizer(new FloraRasterizer())
+                .addPlugins();
     }
 
     @Override
     public Vector3f getSpawnPosition(EntityRef entity) {
         LocationComponent loc = entity.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition();
-
-        int searchRadius = 500;
         Vector3i ext = new Vector3i(searchRadius, 1, searchRadius);
         Vector3i desiredPos = new Vector3i(pos.getX(), 1, pos.getZ());
 
         // try and find somewhere in this region a spot to land
-        Region3i spawnArea = Region3i.createFromCenterExtents(desiredPos, ext);
-        Region worldRegion = getWorld().getWorldData(spawnArea);
+        Region3i searchArea = Region3i.createFromCenterExtents(desiredPos, ext);
+        org.terasology.world.generation.Region worldRegion = getWorld().getWorldData(searchArea);
         world = getWorld();
-
+        // graphs contains all graphs relevant within a radius of 7000 blocks from (0,0,0)
         GraphFacet graphs = worldRegion.getFacet(GraphFacet.class);
         WhittakerBiomeModelFacet model = worldRegion.getFacet(WhittakerBiomeModelFacet.class);
         Vector2f pos2d = new Vector2f(pos.getX(), pos.getZ());
-        CirclePickerClosest<org.terasology.polyworld.graph.Region> picker = new CirclePickerClosest<>(pos2d);
+        CirclePickerClosest<Region> picker = new CirclePickerClosest<>(pos2d);
+        int i = 0;
 
+        // searches for a spawn point such that it contains all the biomes required nearby
         for (Graph g : graphs.getAllGraphs()) {
             BiomeModel biomeModel = model.get(g);
-            for (org.terasology.polyworld.graph.Region r : g.getRegions()) {
+            for (Region r : g.getRegions()) {
                 WhittakerBiome biome = biomeModel.getBiome(r);
-                boolean flag = false;
-                for (org.terasology.polyworld.graph.Region neighbour : r.getNeighbors()) {
+                boolean ocean = false;
+                boolean forest = false;
+                boolean desert = false;
+                if (biomeModel.getBiome(r).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST) || biomeModel.getBiome(r).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST) || biomeModel.getBiome(r).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST) || biomeModel.getBiome(r).equals(WhittakerBiome.TROPICAL_RAIN_FOREST)) {
+                    forest = true;
+                }
+                for (Region neighbour : r.getNeighbors()) {
                     if (biomeModel.getBiome(neighbour).equals(WhittakerBiome.OCEAN)) {
-                        flag = true;
+                        ocean = true;
                         break;
                     }
+                    if (isDesertBiome(neighbour, biomeModel)) {
+                        desert = true;
+                    }
+                    if (isForestBiome(neighbour, biomeModel)) {
+                        forest = true;
+                    }
+                    for (Region neighbour2 : neighbour.getNeighbors()) {
+                        if (isForestBiome(neighbour2, biomeModel)) {
+                            forest = true;
+                        }
+                        if (isDesertBiome(neighbour2, biomeModel)) {
+                            desert = true;
+                        }
+                    }
                 }
-                if (flag) {
+                if (ocean || !forest || !desert) {
                     continue;
                 }
                 if (!biome.equals(WhittakerBiome.OCEAN) && !biome.equals(WhittakerBiome.LAKE) && !biome.equals(WhittakerBiome.BEACH)) {
@@ -143,4 +166,13 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         FixedSpawner spawner = new FixedSpawner(target.getX(), target.getY());
         return spawner.getSpawnPosition(getWorld(), entity);
     }
+
+    private boolean isForestBiome(Region region, BiomeModel biomeModel) {
+        return biomeModel.getBiome(region).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST) || biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST) || biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST) || biomeModel.getBiome(region).equals(WhittakerBiome.TROPICAL_RAIN_FOREST);
+    }
+
+    private boolean isDesertBiome(Region region, BiomeModel biomeModel) {
+        return biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_DESERT) || biomeModel.getBiome(region).equals(WhittakerBiome.SUBTROPICAL_DESERT);
+    }
+
 }
