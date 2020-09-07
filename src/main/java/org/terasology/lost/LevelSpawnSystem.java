@@ -42,6 +42,8 @@ import java.util.Set;
  */
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class LevelSpawnSystem extends BaseComponentSystem {
+    private static final Logger logger = LoggerFactory.getLogger(LevelSpawnSystem.class);
+
     @In
     private EntityManager entityManager;
     @In
@@ -50,9 +52,9 @@ public class LevelSpawnSystem extends BaseComponentSystem {
     private AssetManager assetManager;
     @In
     private WorldProvider worldProvider;
-    private static final Logger logger = LoggerFactory.getLogger(LevelSpawnSystem.class);
+
     // to prevent overlapping with hut
-    int minimumDistanceFromHut = 30;
+    private static final int MINIMUM_DISTANCE_FROM_HUT = 30;
 
     @ReceiveEvent
     public void onBiomeChange(OnBiomeChangedEvent event, EntityRef player,
@@ -79,7 +81,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
 
         float distanceFromHut = center.distance(new Vector2f(progressTrackingComponent.hutPosition.x,
                 progressTrackingComponent.hutPosition.z));
-        if (distanceFromHut < minimumDistanceFromHut && !event.getNewBiome().getDisplayName().contains("forest")) {
+        if (distanceFromHut < MINIMUM_DISTANCE_FROM_HUT && !event.getNewBiome().getDisplayName().contains("forest")) {
             return;
         }
         String levelURI = progressTrackingComponent.getLevelPrefab(event.getNewBiome().getDisplayName());

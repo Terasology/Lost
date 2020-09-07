@@ -16,7 +16,7 @@ public class ProgressTrackingComponent implements Component {
     // Biomes mapped to the corresponding level URIs
     HashMap<String, String> biomeToPrefab = new HashMap<String, String>();
     // To track whether the well has been discovered
-    boolean foundWell = false;
+    boolean foundWell;
     // Stores the hut position once it is spawned to prevent overlapping with levels
     Vector3i hutPosition;
 

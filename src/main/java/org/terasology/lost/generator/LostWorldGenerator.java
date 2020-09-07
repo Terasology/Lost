@@ -15,9 +15,6 @@
  */
 package org.terasology.lost.generator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.terasology.biomesAPI.Biome;
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
 import org.terasology.core.world.generator.rasterizers.FloraRasterizer;
 import org.terasology.core.world.generator.rasterizers.TreeRasterizer;
@@ -52,7 +49,6 @@ import org.terasology.polyworld.rivers.RiverModelFacetProvider;
 import org.terasology.polyworld.rp.WorldRegionFacetProvider;
 import org.terasology.polyworld.water.WaterModelFacetProvider;
 import org.terasology.registry.CoreRegistry;
-import org.terasology.registry.In;
 import org.terasology.world.generation.BaseFacetedWorldGenerator;
 import org.terasology.world.generation.WorldBuilder;
 import org.terasology.world.generation.World;
@@ -65,9 +61,8 @@ import org.terasology.world.viewer.picker.CirclePickerClosest;
         "exploration world.")
 public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     public static World world;
-    private static final Logger logger = LoggerFactory.getLogger(LostWorldGenerator.class);
     // Radius to search for a suitable spawn location
-    private final int searchRadius = 7000;
+    private static final int SEARCH_RADIUS = 7000;
 
     public LostWorldGenerator(SimpleUri uri) {
         super(uri);
@@ -102,7 +97,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     public Vector3f getSpawnPosition(EntityRef entity) {
         LocationComponent loc = entity.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition();
-        Vector3i ext = new Vector3i(searchRadius, 1, searchRadius);
+        Vector3i ext = new Vector3i(SEARCH_RADIUS, 1, SEARCH_RADIUS);
         Vector3i desiredPos = new Vector3i(pos.getX(), 1, pos.getZ());
 
         // try and find somewhere in this region a spot to land
@@ -114,8 +109,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         WhittakerBiomeModelFacet model = worldRegion.getFacet(WhittakerBiomeModelFacet.class);
         Vector2f pos2d = new Vector2f(pos.getX(), pos.getZ());
         CirclePickerClosest<Region> picker = new CirclePickerClosest<>(pos2d);
-        int i = 0;
-
+        boolean locationFound = false;
         // searches for a spawn point such that it contains all the biomes required nearby
         for (Graph g : graphs.getAllGraphs()) {
             BiomeModel biomeModel = model.get(g);
@@ -152,7 +146,12 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 }
                 if (!biome.equals(WhittakerBiome.OCEAN) && !biome.equals(WhittakerBiome.LAKE) && !biome.equals(WhittakerBiome.BEACH)) {
                     picker.offer(r.getCenter(), r);
+                    locationFound = true;
+                    break;
                 }
+            }
+            if(locationFound){
+                break;
             }
         }
         Vector2i target;
