@@ -36,7 +36,7 @@ import java.util.Set;
 
 /**
  * Creates the levels/challenges for the Lost gameplay. On every biome change event it is checked whether the it is
- * suitable for a level spawn. If yes, the challenge corresponding to the biome is spawned in the centre of the vornoi
+ * suitable for a level spawn. If yes, the challenge corresponding to the biome is spawned in the centre of the voronoi
  * {@link Region} entered The challenges start spawning in their respective biomes once the book in the well has been
  * discovered
  */
@@ -70,11 +70,11 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         Vector3i desiredPos = new Vector3i(playerLocation.getX(), 1, playerLocation.getZ());
         Region3i searchRegion = Region3i.createFromCenterExtents(desiredPos, extent);
 
-        //Obtain surface height facet for the search region
+        // obtain surface height facet for the search region
         org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
         SurfaceHeightFacet surfaceHeightFacet = worldRegion.getFacet(SurfaceHeightFacet.class);
 
-        //fetch the current vornoi region
+        // fetch the current voronoi region
         Region region = worldRegion.getFacet(GraphFacet.class).getWorldTriangle(Math.round(playerLocation.x),
                 Math.round(playerLocation.z)).getRegion();
         ImmutableVector2f center = region.getCenter();
@@ -97,7 +97,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
             Vector3i spawnPosition = new Vector3i(x, height, y);
             spawnLevel(levelURI, spawnPosition, assetManager, entityManager);
 
-            //prevent level just spawned from being spawned again
+            // prevent level just spawned from being spawned again
             Set<String> keySet = progressTrackingComponent.biomeToPrefab.keySet();
             for (String key : keySet) {
                 if (progressTrackingComponent.getLevelPrefab(key) != null && progressTrackingComponent.getLevelPrefab(key).equals(levelURI)) {

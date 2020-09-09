@@ -118,7 +118,13 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 boolean ocean = false;
                 boolean forest = false;
                 boolean desert = false;
-                if (biomeModel.getBiome(r).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST) || biomeModel.getBiome(r).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST) || biomeModel.getBiome(r).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST) || biomeModel.getBiome(r).equals(WhittakerBiome.TROPICAL_RAIN_FOREST)) {
+                if (biomeModel.getBiome(r).equals(WhittakerBiome.OCEAN)) {
+                    continue;
+                }
+                if (isDesertBiome(r, biomeModel)) {
+                    desert = true;
+                }
+                if (isForestBiome(r, biomeModel)) {
                     forest = true;
                 }
                 for (Region neighbour : r.getNeighbors()) {

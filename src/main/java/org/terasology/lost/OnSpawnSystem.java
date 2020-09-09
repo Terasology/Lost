@@ -28,7 +28,6 @@ import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.lost.generator.LostWorldGenerator;
 import org.terasology.math.Region3i;
 import org.terasology.registry.In;
-import org.terasology.logic.console.Console;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
@@ -37,6 +36,9 @@ import org.terasology.world.generation.facets.SurfaceHeightFacet;
 
 import static org.terasology.lost.LevelSpawnSystem.spawnLevel;
 
+/**
+ * Contains actions to be taken when the player spawns in the Lost world for the first time
+ */
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class OnSpawnSystem extends BaseComponentSystem {
     @In
@@ -44,11 +46,11 @@ public class OnSpawnSystem extends BaseComponentSystem {
     @In
     private InventoryManager inventoryManager;
     @In
-    private Console console;
-    @In
     private AssetManager assetManager;
     @In
     private WorldProvider worldProvider;
+
+    private static final int HUT_OFFSET_FROM_SPAWN = 15;
 
     @ReceiveEvent
     public void onPlayerSpawn(OnPlayerSpawnedEvent event, EntityRef player, InventoryComponent inventory) {
@@ -78,8 +80,8 @@ public class OnSpawnSystem extends BaseComponentSystem {
         SurfaceHeightFacet surfaceHeightFacet = worldRegion.getFacet(SurfaceHeightFacet.class);
 
         // spawn the hut a little far from the player
-        int x = (int) Math.round(playerLocation.getX()) - 15;
-        int y = (int) Math.round(playerLocation.getZ()) - 15;
+        int x = (int) Math.round(playerLocation.getX()) - HUT_OFFSET_FROM_SPAWN;
+        int y = (int) Math.round(playerLocation.getZ()) - HUT_OFFSET_FROM_SPAWN;
         Vector3i spawnPosition = new Vector3i(x, surfaceHeightFacet.getWorld(x, y), y);
         spawnLevel("Lost:hut", spawnPosition, assetManager, entityManager);
         spawnPosition.y = 0;
