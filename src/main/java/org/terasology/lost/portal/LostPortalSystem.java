@@ -1,38 +1,25 @@
-/*
- * Copyright 2017 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2020 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 package org.terasology.lost.portal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.systems.BaseComponentSystem;
-import org.terasology.entitySystem.systems.RegisterMode;
-import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.logic.characters.CharacterComponent;
-import org.terasology.logic.characters.CharacterHeldItemComponent;
-import org.terasology.logic.common.ActivateEvent;
-import org.terasology.logic.location.LocationComponent;
-import org.terasology.logic.notifications.NotificationMessageEvent;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.event.ReceiveEvent;
+import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
+import org.terasology.engine.entitySystem.systems.RegisterMode;
+import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.logic.characters.CharacterComponent;
+import org.terasology.engine.logic.characters.CharacterHeldItemComponent;
+import org.terasology.engine.logic.common.ActivateEvent;
+import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.logic.notifications.NotificationMessageEvent;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.world.BlockEntityRegistry;
+import org.terasology.engine.world.block.BlockComponent;
+import org.terasology.engine.world.block.items.BlockItemComponent;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.registry.In;
-import org.terasology.world.BlockEntityRegistry;
-import org.terasology.world.block.BlockComponent;
-import org.terasology.world.block.items.BlockItemComponent;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class LostPortalSystem extends BaseComponentSystem {
@@ -129,8 +116,10 @@ public class LostPortalSystem extends BaseComponentSystem {
             }
         }
         Vector3f playerWorldLocation = player.getComponent(LocationComponent.class).getWorldPosition();
-        Vector3i roundedKeyPosition = new Vector3i(Math.round(keyLocation.x), Math.round(keyLocation.y), Math.round(keyLocation.z));
-        Vector3i roundedPlayerPosition = new Vector3i(Math.round(playerWorldLocation.x), Math.round(playerWorldLocation.y), Math.round(playerWorldLocation.z));
+        Vector3i roundedKeyPosition = new Vector3i(Math.round(keyLocation.x), Math.round(keyLocation.y),
+                Math.round(keyLocation.z));
+        Vector3i roundedPlayerPosition = new Vector3i(Math.round(playerWorldLocation.x),
+                Math.round(playerWorldLocation.y), Math.round(playerWorldLocation.z));
         if (roundedPlayerPosition.equals(new Vector3i(0, 1, 0).add(roundedKeyPosition)) ||
                 roundedPlayerPosition.equals(new Vector3i(0, 2, 0).add(roundedKeyPosition))) {
             return;
