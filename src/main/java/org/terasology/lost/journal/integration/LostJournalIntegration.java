@@ -114,8 +114,8 @@ public class LostJournalIntegration extends BaseComponentSystem {
                                 "Inside the chest, I’ve found what looks like a book of secrets.<l><l>" +
                                 "It talks about a treasure, possibly one that can take me out of this planet. " +
                                 "There are three parts that the treasure is made of. " +
-                                "With the hut lying to the north of the well, the three elements of the treasure lie in the other three directions- " +
-                                "East, South and West.<l><l>" +
+                                "The three elements of the treasure lie in the other three areas." +
+                                "<l><l>" +
                                 "The clues are indeed difficult to decipher. However, I should hurry and look for whatever is it that I can find. " +
                                 "This might be my only chance to make it back.<l><l>" +
                                 "This would be a ground-breaking discovery back in the HQ. The search has finally yielded results. Is this " +
@@ -143,7 +143,7 @@ public class LostJournalIntegration extends BaseComponentSystem {
         chapterHandler.registerJournalEntry("Exploration Log- Shattered Temple of Hope",
                 Arrays.asList(
                         createTitleParagraph("Exploration Log- Shattered Temple of Hope"),
-                        createTextParagraph("The tea was actually the letter T. Amidst the golden sand lay a T shaped entrance made of " +
+                        createTextParagraph("The tea was actually the letter T. Amidst the lush green forest lay a T shaped entrance made of " +
                                 "brown dirt, to a solemn temple. The password to the door was a reference to the brown dirt.<l><l>" +
                                 "My awe for the level of advancement that the inhabitants of this planet had reached, " +
                                 "has attained a new high. The tunnel led to a temple that possessed another chest at its end. " +
