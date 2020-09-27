@@ -9,6 +9,7 @@
       { "blockType": "AdventureAssets:FireballLauncherRoot.RIGHT", "region": { "min": [-5, -9, 20], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:FireballLauncherRoot.RIGHT", "region": { "min": [5, -8, 24], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:FireballLauncherRoot.RIGHT", "region": { "min": [-5, -9, 29], "size": [1, 1, 1]}},
+      { "blockType": "AdventureAssets:altarofresurrectionroot.FRONT", "region": { "min": [2, -9, 13], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:swingingbladeroot.FRONT", "region": { "min": [0, -2, 23], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:swingingbladeroot.FRONT", "region": { "min": [0, -2, 25], "size": [1, 1, 1]}},
       { "blockType": "CoreAdvancedAssets:Chest.FRONT", "region": { "min": [0, -9, 34], "size": [1, 1, 1]}},

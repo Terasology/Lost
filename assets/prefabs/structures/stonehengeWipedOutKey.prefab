@@ -5,6 +5,7 @@
     "regionsToFill": [
       { "blockType": "AdventureAssets:WipeOutRoot.BACK", "region": { "min": [0, 1, 18], "size": [1, 1, 1]}},
       { "blockType": "AdventureAssets:WipeOutRoot.FRONT", "region": { "min": [0, 1, 34], "size": [1, 1, 1]}},
+      { "blockType": "AdventureAssets:altarofresurrectionroot.LEFT", "region": { "min": [3, 1, 5], "size": [1, 1, 1]}},
       { "blockType": "CoreAdvancedAssets:Chest.FRONT", "region": { "min": [0, 1, 46], "size": [1, 1, 1]}},
       { "blockType": "CoreAssets:CobbleStone", "region": { "min": [-10, 1, 1], "size": [3, 9, 3]}},
       { "blockType": "CoreAssets:CobbleStone", "region": { "min": [-10, 10, 1], "size": [21, 3, 3]}},
