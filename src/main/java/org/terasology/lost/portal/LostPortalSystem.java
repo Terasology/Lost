@@ -27,6 +27,7 @@ import org.terasology.logic.characters.CharacterHeldItemComponent;
 import org.terasology.logic.common.ActivateEvent;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.notifications.NotificationMessageEvent;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
@@ -53,7 +54,7 @@ public class LostPortalSystem extends BaseComponentSystem {
                 .equalsIgnoreCase("Lost:ObsidianTorch")) {
             return;
         }
-        activatePortal(event.getTargetLocation(), event.getInstigator());
+        activatePortal(JomlUtil.from(event.getTargetLocation()), event.getInstigator());
     }
 
     private void activatePortal(Vector3f keyLocation, EntityRef player) {
