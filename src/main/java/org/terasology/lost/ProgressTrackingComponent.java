@@ -5,7 +5,6 @@ package org.terasology.lost;
 
 import org.terasology.entitySystem.Component;
 import org.terasology.math.geom.Vector3i;
-import org.terasology.polyworld.graph.Region;
 
 import java.util.HashMap;
 

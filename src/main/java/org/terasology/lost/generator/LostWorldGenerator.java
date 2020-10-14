@@ -1,18 +1,5 @@
-/*
- * Copyright 2017 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2020 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 package org.terasology.lost.generator;
 
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
@@ -41,7 +28,7 @@ import org.terasology.polyworld.flora.TreeProvider;
 import org.terasology.polyworld.graph.Graph;
 import org.terasology.polyworld.graph.GraphFacet;
 import org.terasology.polyworld.graph.GraphFacetProvider;
-import org.terasology.polyworld.graph.Region;
+import org.terasology.polyworld.graph.GraphRegion;
 import org.terasology.polyworld.moisture.MoistureModelFacetProvider;
 import org.terasology.polyworld.raster.RiverRasterizer;
 import org.terasology.polyworld.raster.WhittakerRasterizer;
@@ -108,12 +95,12 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         GraphFacet graphs = worldRegion.getFacet(GraphFacet.class);
         WhittakerBiomeModelFacet model = worldRegion.getFacet(WhittakerBiomeModelFacet.class);
         Vector2f pos2d = new Vector2f(pos.getX(), pos.getZ());
-        CirclePickerClosest<Region> picker = new CirclePickerClosest<>(pos2d);
+        CirclePickerClosest<GraphRegion> picker = new CirclePickerClosest<>(pos2d);
         boolean locationFound = false;
         // searches for a spawn point such that it contains all the biomes required nearby
         for (Graph g : graphs.getAllGraphs()) {
             BiomeModel biomeModel = model.get(g);
-            for (Region r : g.getRegions()) {
+            for (GraphRegion r : g.getRegions()) {
                 WhittakerBiome biome = biomeModel.getBiome(r);
                 boolean ocean = false;
                 boolean forest = false;
@@ -127,7 +114,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                 if (isForestBiome(r, biomeModel)) {
                     forest = true;
                 }
-                for (Region neighbour : r.getNeighbors()) {
+                for (GraphRegion neighbour : r.getNeighbors()) {
                     if (biomeModel.getBiome(neighbour).equals(WhittakerBiome.OCEAN)) {
                         ocean = true;
                         break;
@@ -138,7 +125,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                     if (isForestBiome(neighbour, biomeModel)) {
                         forest = true;
                     }
-                    for (Region neighbour2 : neighbour.getNeighbors()) {
+                    for (GraphRegion neighbour2 : neighbour.getNeighbors()) {
                         if (isForestBiome(neighbour2, biomeModel)) {
                             forest = true;
                         }
@@ -172,11 +159,11 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         return spawner.getSpawnPosition(getWorld(), entity);
     }
 
-    private boolean isForestBiome(Region region, BiomeModel biomeModel) {
+    private boolean isForestBiome(GraphRegion region, BiomeModel biomeModel) {
         return biomeModel.getBiome(region).equals(WhittakerBiome.TROPICAL_SEASONAL_FOREST) || biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_RAIN_FOREST) || biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_DECIDUOUS_FOREST) || biomeModel.getBiome(region).equals(WhittakerBiome.TROPICAL_RAIN_FOREST);
     }
 
-    private boolean isDesertBiome(Region region, BiomeModel biomeModel) {
+    private boolean isDesertBiome(GraphRegion region, BiomeModel biomeModel) {
         return biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_DESERT) || biomeModel.getBiome(region).equals(WhittakerBiome.SUBTROPICAL_DESERT);
     }
 

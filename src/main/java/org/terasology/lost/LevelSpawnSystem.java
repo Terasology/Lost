@@ -25,7 +25,7 @@ import org.terasology.math.geom.Vector2f;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
 import org.terasology.polyworld.graph.GraphFacet;
-import org.terasology.polyworld.graph.Region;
+import org.terasology.polyworld.graph.GraphRegion;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
@@ -37,7 +37,7 @@ import java.util.Set;
 /**
  * Creates the levels/challenges for the Lost gameplay. On every biome change event it is checked whether the it is
  * suitable for a level spawn. If yes, the challenge corresponding to the biome is spawned in the centre of the voronoi
- * {@link Region} entered The challenges start spawning in their respective biomes once the book in the well has been
+ * {@link GraphRegion} entered The challenges start spawning in their respective biomes once the book in the well has been
  * discovered
  */
 @RegisterSystem(RegisterMode.AUTHORITY)
@@ -75,7 +75,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         SurfaceHeightFacet surfaceHeightFacet = worldRegion.getFacet(SurfaceHeightFacet.class);
 
         // fetch the current voronoi region
-        Region region = worldRegion.getFacet(GraphFacet.class).getWorldTriangle(Math.round(playerLocation.x),
+        GraphRegion region = worldRegion.getFacet(GraphFacet.class).getWorldTriangle(Math.round(playerLocation.x),
                 Math.round(playerLocation.z)).getRegion();
         ImmutableVector2f center = region.getCenter();
 
