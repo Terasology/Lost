@@ -24,6 +24,6 @@ As you progress the story will be added in your Journal as you gather more resea
 
 ### Find Books That Help You Continue Your Journey
 
-Find books thoughout your journey with clues and parts of the story.
+Find books to be your guide.
 
 ![Book of secrets](https://i.imgur.com/7Leuuni.png)
