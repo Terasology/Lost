@@ -3,16 +3,23 @@
 Are you truly lost? Will you ever return home?
 A researcher on a space expedition is stranded on an alien world with no way to get home.  
 
-
  ## How To Play
 
-Download the Lost module and it's dependacies. When this is installed, create a new world with the Lost template. If everything worked, you should spawn in a world with a small house nearby.
+Download the Lost module and it's dependencies. When this is installed, create a new world with the Lost template. If everything worked, you should spawn in a world with a small house nearby.
 
 ## Current Features
 
 ### Special Structure Generation
 
-Providing the story of the Lost World.
+As you explore you might find buildings that contain treasures, secerts and puzzels.
+
+<details><summary>Spoiler regarding some puzzels.</summary>
+<p>
+
+Buildings are generated as you are exploring, some puzzels might require you to revisit areas.
+
+</p>
+</details>
 
 ![House that starts your adventure](https://i.imgur.com/JywAWZ2.png)
 
