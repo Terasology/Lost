@@ -13,10 +13,10 @@ Download the Lost module and it's dependencies. When this is installed, create a
 
 As you explore you might find buildings that contain treasures, secerts and puzzels.
 
-<details><summary>Spoiler regarding some puzzels.</summary>
+<details><summary>Spoiler regarding some puzzles.</summary>
 <p>
 
-Buildings are generated as you are exploring, some puzzels might require you to revisit areas.
+Buildings are generated as you are exploring, some puzzles might require you to revisit areas.
 
 </p>
 </details>
