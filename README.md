@@ -11,7 +11,7 @@ Download the Lost module and its dependencies. When this is installed, create a 
 
 ### Special Structure Generation
 
-As you explore you might find buildings that contain treasures, secerts and puzzels.
+As you explore you might find buildings that contain treasures, secrets and puzzles.
 
 <details><summary>Spoiler regarding some puzzles.</summary>
 <p>
