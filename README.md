@@ -5,7 +5,7 @@ A researcher on a space expedition is stranded on an alien world with no way to 
 
  ## How To Play
 
-Download the Lost module and it's dependencies. When this is installed, create a new world with the Lost template. If everything worked, you should spawn in a world with a small house nearby.
+Download the Lost module and its dependencies. When this is installed, create a new world with the Lost template. If everything worked, you should spawn in a world with a small house nearby.
 
 ## Current Features
 
