@@ -30,7 +30,8 @@ import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
-import org.terasology.world.generation.facets.SurfaceHeightFacet;
+import org.terasology.world.generation.facets.ElevationFacet;
+import org.terasology.world.generation.facets.SurfacesFacet;
 
 import java.util.Set;
 
@@ -72,7 +73,8 @@ public class LevelSpawnSystem extends BaseComponentSystem {
 
         // obtain surface height facet for the search region
         org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
-        SurfaceHeightFacet surfaceHeightFacet = worldRegion.getFacet(SurfaceHeightFacet.class);
+        SurfacesFacet surfacesFacet = worldRegion.getFacet(SurfacesFacet.class);
+        ElevationFacet elevationFacet = worldRegion.getFacet(ElevationFacet.class);
 
         // fetch the current voronoi region
         GraphRegion region = worldRegion.getFacet(GraphFacet.class).getWorldTriangle(Math.round(playerLocation.x),
@@ -92,7 +94,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
             // round center coordinates to Integers
             int x = Math.round(center.getX());
             int y = Math.round(center.getY());
-            int height = Math.round(surfaceHeightFacet.getWorld(x, y));
+            int height = Math.round(surfacesFacet.getPrimarySurface(elevationFacet, x, y).orElse(elevationFacet.getWorld(x, y)));
 
             Vector3i spawnPosition = new Vector3i(x, height, y);
             spawnLevel(levelURI, spawnPosition, assetManager, entityManager);

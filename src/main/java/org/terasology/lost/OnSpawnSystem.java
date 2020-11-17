@@ -24,15 +24,16 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.inventory.InventoryComponent;
 import org.terasology.logic.inventory.InventoryManager;
+import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.lost.generator.LostWorldGenerator;
 import org.terasology.math.Region3i;
-import org.terasology.registry.In;
-import org.terasology.logic.location.LocationComponent;
 import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector3i;
+import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
-import org.terasology.world.generation.facets.SurfaceHeightFacet;
+import org.terasology.world.generation.facets.ElevationFacet;
+import org.terasology.world.generation.facets.SurfacesFacet;
 
 import static org.terasology.lost.LevelSpawnSystem.spawnLevel;
 
@@ -77,12 +78,14 @@ public class OnSpawnSystem extends BaseComponentSystem {
 
         // fetch surface height facet
         org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
-        SurfaceHeightFacet surfaceHeightFacet = worldRegion.getFacet(SurfaceHeightFacet.class);
+        SurfacesFacet surfacesFacet = worldRegion.getFacet(SurfacesFacet.class);
+        ElevationFacet elevationFacet = worldRegion.getFacet(ElevationFacet.class);
 
         // spawn the hut a little far from the player
         int x = (int) Math.round(playerLocation.getX()) - HUT_OFFSET_FROM_SPAWN;
         int y = (int) Math.round(playerLocation.getZ()) - HUT_OFFSET_FROM_SPAWN;
-        Vector3i spawnPosition = new Vector3i(x, surfaceHeightFacet.getWorld(x, y), y);
+        int height = Math.round(surfacesFacet.getPrimarySurface(elevationFacet, x, y).orElse(elevationFacet.getWorld(x, y)));
+        Vector3i spawnPosition = new Vector3i(x, height, y);
         spawnLevel("Lost:hut", spawnPosition, assetManager, entityManager);
         spawnPosition.y = 0;
         progressTrackingComponent.hutPosition = spawnPosition;
