@@ -18,6 +18,7 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.lost.generator.LostWorldGenerator;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.Region3i;
 import org.terasology.math.Side;
 import org.terasology.math.geom.ImmutableVector2f;
@@ -123,7 +124,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
         EntityRef item = entityBuilder.build();
         BlockRegionTransform blockRegionTransform = BlockRegionTransform.createRotationThenMovement(Side.FRONT,
-                Side.FRONT, spawnPosition);
+                Side.FRONT, JomlUtil.from(spawnPosition));
         item.send(new SpawnStructureEvent(blockRegionTransform));
     }
 }
