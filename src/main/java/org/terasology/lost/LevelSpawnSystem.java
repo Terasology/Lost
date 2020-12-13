@@ -3,6 +3,9 @@
 
 package org.terasology.lost;
 
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.assets.management.AssetManager;
@@ -18,19 +21,17 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.lost.generator.LostWorldGenerator;
-import org.terasology.math.JomlUtil;
-import org.terasology.math.Region3i;
 import org.terasology.math.Side;
 import org.terasology.math.geom.ImmutableVector2f;
 import org.terasology.math.geom.Vector2f;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.polyworld.graph.GraphFacet;
 import org.terasology.polyworld.graph.GraphRegion;
 import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
 import org.terasology.world.WorldProvider;
+import org.terasology.world.block.BlockRegion;
+import org.terasology.world.block.BlockRegions;
 import org.terasology.world.generation.facets.ElevationFacet;
 import org.terasology.world.generation.facets.SurfacesFacet;
 
@@ -62,15 +63,15 @@ public class LevelSpawnSystem extends BaseComponentSystem {
     public void onBiomeChange(OnBiomeChangedEvent event, EntityRef player,
                               ProgressTrackingComponent progressTrackingComponent) {
         LocationComponent loc = player.getComponent(LocationComponent.class);
-        Vector3f playerLocation = loc.getWorldPosition();
-        playerLocation = playerLocation.add(loc.getWorldDirection().scale(3));
+        Vector3f playerLocation = loc.getWorldPosition(new Vector3f());
+        playerLocation = playerLocation.add(loc.getWorldDirection(new Vector3f()).mul(3));
         // nearby area radius for which facets are fetched
         int searchRadius = 400;
 
         // create Region to be searched
         Vector3i extent = new Vector3i(searchRadius, 1, searchRadius);
-        Vector3i desiredPos = new Vector3i(playerLocation.getX(), 1, playerLocation.getZ());
-        Region3i searchRegion = Region3i.createFromCenterExtents(desiredPos, extent);
+        Vector3i desiredPos = new Vector3i(new Vector3f(playerLocation.x(), 1, playerLocation.z()), RoundingMode.FLOOR);
+        BlockRegion searchRegion = BlockRegions.createFromCenterAndExtents(desiredPos, extent);
 
         // obtain surface height facet for the search region
         org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
@@ -124,7 +125,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         EntityBuilder entityBuilder = entityManager.newBuilder(prefab);
         EntityRef item = entityBuilder.build();
         BlockRegionTransform blockRegionTransform = BlockRegionTransform.createRotationThenMovement(Side.FRONT,
-                Side.FRONT, JomlUtil.from(spawnPosition));
+                Side.FRONT, spawnPosition);
         item.send(new SpawnStructureEvent(blockRegionTransform));
     }
 }

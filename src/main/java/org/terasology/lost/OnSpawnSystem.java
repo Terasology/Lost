@@ -15,6 +15,9 @@
  */
 package org.terasology.lost;
 
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.entitySystem.entity.EntityManager;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -27,11 +30,12 @@ import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.lost.generator.LostWorldGenerator;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.Region3i;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
+import org.terasology.world.block.BlockRegion;
+import org.terasology.world.block.BlockRegions;
 import org.terasology.world.generation.facets.ElevationFacet;
 import org.terasology.world.generation.facets.SurfacesFacet;
 
@@ -67,14 +71,14 @@ public class OnSpawnSystem extends BaseComponentSystem {
         player.addComponent(progressTrackingComponent);
 
         LocationComponent loc = player.getComponent(LocationComponent.class);
-        Vector3f playerLocation = loc.getWorldPosition();
+        Vector3f playerLocation = loc.getWorldPosition(new Vector3f());
         // radius such that hut is in the search area
         int searchRadius = 25;
 
         // create Region to be searched
         Vector3i extent = new Vector3i(searchRadius, 1, searchRadius);
-        Vector3i desiredPos = new Vector3i(playerLocation.getX(), 1, playerLocation.getZ());
-        Region3i searchRegion = Region3i.createFromCenterExtents(desiredPos, extent);
+        Vector3i desiredPos = new Vector3i(new Vector3f(playerLocation.x(), 1, playerLocation.z()), RoundingMode.FLOOR);
+        BlockRegion searchRegion = BlockRegions.createFromCenterAndExtents(desiredPos, extent);
 
         // fetch surface height facet
         org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
@@ -82,13 +86,13 @@ public class OnSpawnSystem extends BaseComponentSystem {
         ElevationFacet elevationFacet = worldRegion.getFacet(ElevationFacet.class);
 
         // spawn the hut a little far from the player
-        int x = (int) Math.round(playerLocation.getX()) - HUT_OFFSET_FROM_SPAWN;
-        int y = (int) Math.round(playerLocation.getZ()) - HUT_OFFSET_FROM_SPAWN;
+        int x = (int) Math.round(playerLocation.x()) - HUT_OFFSET_FROM_SPAWN;
+        int y = (int) Math.round(playerLocation.z()) - HUT_OFFSET_FROM_SPAWN;
         int height = Math.round(surfacesFacet.getPrimarySurface(elevationFacet, x, y).orElse(elevationFacet.getWorld(x, y)));
         Vector3i spawnPosition = new Vector3i(x, height, y);
         spawnLevel("Lost:hut", spawnPosition, assetManager, entityManager);
         spawnPosition.y = 0;
-        progressTrackingComponent.hutPosition = spawnPosition;
+        progressTrackingComponent.hutPosition = JomlUtil.from(spawnPosition);
 
     }
 }
