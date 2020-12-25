@@ -31,11 +31,9 @@ import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.lost.generator.LostWorldGenerator;
 import org.terasology.math.JomlUtil;
-import org.terasology.math.Region3i;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.BlockRegion;
-import org.terasology.world.block.BlockRegions;
 import org.terasology.world.generation.facets.ElevationFacet;
 import org.terasology.world.generation.facets.SurfacesFacet;
 
@@ -78,7 +76,7 @@ public class OnSpawnSystem extends BaseComponentSystem {
         // create Region to be searched
         Vector3i extent = new Vector3i(searchRadius, 1, searchRadius);
         Vector3i desiredPos = new Vector3i(new Vector3f(playerLocation.x(), 1, playerLocation.z()), RoundingMode.FLOOR);
-        BlockRegion searchRegion = BlockRegions.createFromCenterAndExtents(desiredPos, extent);
+        BlockRegion searchRegion = new BlockRegion(desiredPos).expand(extent);
 
         // fetch surface height facet
         org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);

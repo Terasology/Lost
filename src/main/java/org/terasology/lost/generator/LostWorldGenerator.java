@@ -39,7 +39,6 @@ import org.terasology.polyworld.rp.WorldRegionFacetProvider;
 import org.terasology.polyworld.water.WaterModelFacetProvider;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.world.block.BlockRegion;
-import org.terasology.world.block.BlockRegions;
 import org.terasology.world.generation.BaseFacetedWorldGenerator;
 import org.terasology.world.generation.World;
 import org.terasology.world.generation.WorldBuilder;
@@ -93,7 +92,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         Vector3i desiredPos = new Vector3i(new Vector3f(pos.x(), 1, pos.z()), RoundingMode.FLOOR);
 
         // try and find somewhere in this region a spot to land
-        BlockRegion searchArea = BlockRegions.createFromCenterAndExtents(desiredPos, ext);
+        BlockRegion searchArea = new BlockRegion(desiredPos).expand(ext);
         org.terasology.world.generation.Region worldRegion = getWorld().getWorldData(searchArea);
         world = getWorld();
         // graphs contains all graphs relevant within a radius of 7000 blocks from (0,0,0)
