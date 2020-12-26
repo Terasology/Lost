@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.lost.generator;
 
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
 import org.terasology.core.world.generator.facetProviders.SurfaceToDensityProvider;
 import org.terasology.core.world.generator.rasterizers.FloraRasterizer;
@@ -11,12 +14,9 @@ import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.spawner.FixedSpawner;
 import org.terasology.math.JomlUtil;
-import org.terasology.math.Region3i;
 import org.terasology.math.geom.ImmutableVector2f;
 import org.terasology.math.geom.Vector2f;
 import org.terasology.math.geom.Vector2i;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
 import org.terasology.polyworld.biome.BiomeModel;
 import org.terasology.polyworld.biome.WhittakerBiome;
 import org.terasology.polyworld.biome.WhittakerBiomeModelFacet;
@@ -38,9 +38,10 @@ import org.terasology.polyworld.rivers.RiverModelFacetProvider;
 import org.terasology.polyworld.rp.WorldRegionFacetProvider;
 import org.terasology.polyworld.water.WaterModelFacetProvider;
 import org.terasology.registry.CoreRegistry;
+import org.terasology.world.block.BlockRegion;
 import org.terasology.world.generation.BaseFacetedWorldGenerator;
-import org.terasology.world.generation.WorldBuilder;
 import org.terasology.world.generation.World;
+import org.terasology.world.generation.WorldBuilder;
 import org.terasology.world.generator.RegisterWorldGenerator;
 import org.terasology.world.generator.plugin.WorldGeneratorPluginLibrary;
 import org.terasology.world.viewer.picker.CirclePickerClosest;
@@ -84,20 +85,20 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     }
 
     @Override
-    public Vector3f getSpawnPosition(EntityRef entity) {
+    public org.terasology.math.geom.Vector3f getSpawnPosition(EntityRef entity) {
         LocationComponent loc = entity.getComponent(LocationComponent.class);
-        Vector3f pos = loc.getWorldPosition();
+        Vector3f pos = loc.getWorldPosition(new Vector3f());
         Vector3i ext = new Vector3i(SEARCH_RADIUS, 1, SEARCH_RADIUS);
-        Vector3i desiredPos = new Vector3i(pos.getX(), 1, pos.getZ());
+        Vector3i desiredPos = new Vector3i(new Vector3f(pos.x(), 1, pos.z()), RoundingMode.FLOOR);
 
         // try and find somewhere in this region a spot to land
-        Region3i searchArea = Region3i.createFromCenterExtents(desiredPos, ext);
+        BlockRegion searchArea = new BlockRegion(desiredPos).expand(ext);
         org.terasology.world.generation.Region worldRegion = getWorld().getWorldData(searchArea);
         world = getWorld();
         // graphs contains all graphs relevant within a radius of 7000 blocks from (0,0,0)
         GraphFacet graphs = worldRegion.getFacet(GraphFacet.class);
         WhittakerBiomeModelFacet model = worldRegion.getFacet(WhittakerBiomeModelFacet.class);
-        Vector2f pos2d = new Vector2f(pos.getX(), pos.getZ());
+        Vector2f pos2d = new Vector2f(pos.x(), pos.z());
         CirclePickerClosest<GraphRegion> picker = new CirclePickerClosest<>(pos2d);
         boolean locationFound = false;
         // searches for a spawn point such that it contains all the biomes required nearby
@@ -155,7 +156,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
             ImmutableVector2f hit = picker.getClosest().getCenter();
             target = new Vector2i(hit.getX(), hit.getY());
         } else {
-            target = new Vector2i(desiredPos.getX(), desiredPos.getZ());
+            target = new Vector2i(desiredPos.x(), desiredPos.z());
         }
 
         FixedSpawner spawner = new FixedSpawner(target.getX(), target.getY());
