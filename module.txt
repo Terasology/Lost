@@ -13,7 +13,7 @@
         { "id": "CoreAdvancedAssets", "minVersion": "1.1.0" },
         { "id": "CoreAssets", "minVersion": "2.0.1" },
         { "id": "CoreRendering", "minVersion": "1.0.0" },
-        { "id": "CoreWorlds", "minVersion": "1.1.0" },
+        { "id": "CoreWorlds", "minVersion": "1.1.0", "maxVersion": "3.0.0" },
         { "id": "DamagingBlocks", "minVersion": "1.0.0" },
         { "id": "Health", "minVersion": "1.0.0" },
         { "id": "Inventory", "minVersion": "1.1.0" },
