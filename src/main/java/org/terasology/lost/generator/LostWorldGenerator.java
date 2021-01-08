@@ -4,6 +4,7 @@ package org.terasology.lost.generator;
 
 import org.joml.RoundingMode;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.joml.Vector3i;
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
 import org.terasology.core.world.generator.facetProviders.SurfaceToDensityProvider;
@@ -62,30 +63,30 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     protected WorldBuilder createWorld() {
         int maxCacheSize = 20;
         return new WorldBuilder(CoreRegistry.get(WorldGeneratorPluginLibrary.class))
-                .setSeaLevel(6)
-                .addProvider(new SeaLevelProvider(6))
-                .addProvider(new WorldRegionFacetProvider(maxCacheSize, 1f))
-                .addProvider(new GraphFacetProvider(maxCacheSize, 0.1f, 2))
-                .addProvider(new WaterModelFacetProvider(maxCacheSize))
-                .addProvider(new ElevationModelFacetProvider(maxCacheSize))
-                .addProvider(new ElevationProvider())
-                .addProvider(new SurfaceToDensityProvider())
-                .addProvider(new RiverModelFacetProvider(maxCacheSize))
-                .addProvider(new FlatLakeProvider())
-                .addProvider(new MoistureModelFacetProvider(maxCacheSize))
-                .addProvider(new WhittakerBiomeModelProvider(maxCacheSize))
-                .addProvider(new WhittakerBiomeProvider())
-                .addProvider(new TreeProvider())
-                .addProvider(new FloraProvider())
-                .addRasterizer(new WhittakerRasterizer())
-                .addRasterizer(new RiverRasterizer())
-                .addRasterizer(new TreeRasterizer())
-                .addRasterizer(new FloraRasterizer())
-                .addPlugins();
+            .setSeaLevel(6)
+            .addProvider(new SeaLevelProvider(6))
+            .addProvider(new WorldRegionFacetProvider(maxCacheSize, 1f))
+            .addProvider(new GraphFacetProvider(maxCacheSize, 0.1f, 2))
+            .addProvider(new WaterModelFacetProvider(maxCacheSize))
+            .addProvider(new ElevationModelFacetProvider(maxCacheSize))
+            .addProvider(new ElevationProvider())
+            .addProvider(new SurfaceToDensityProvider())
+            .addProvider(new RiverModelFacetProvider(maxCacheSize))
+            .addProvider(new FlatLakeProvider())
+            .addProvider(new MoistureModelFacetProvider(maxCacheSize))
+            .addProvider(new WhittakerBiomeModelProvider(maxCacheSize))
+            .addProvider(new WhittakerBiomeProvider())
+            .addProvider(new TreeProvider())
+            .addProvider(new FloraProvider())
+            .addRasterizer(new WhittakerRasterizer())
+            .addRasterizer(new RiverRasterizer())
+            .addRasterizer(new TreeRasterizer())
+            .addRasterizer(new FloraRasterizer())
+            .addPlugins();
     }
 
     @Override
-    public org.terasology.math.geom.Vector3f getSpawnPosition(EntityRef entity) {
+    public Vector3fc getSpawnPosition(EntityRef entity) {
         LocationComponent loc = entity.getComponent(LocationComponent.class);
         Vector3f pos = loc.getWorldPosition(new Vector3f());
         Vector3i ext = new Vector3i(SEARCH_RADIUS, 1, SEARCH_RADIUS);
@@ -147,7 +148,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                     break;
                 }
             }
-            if(locationFound){
+            if (locationFound) {
                 break;
             }
         }
@@ -160,7 +161,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         }
 
         FixedSpawner spawner = new FixedSpawner(target.getX(), target.getY());
-        return JomlUtil.from(spawner.getSpawnPosition(getWorld(), entity));
+        return spawner.getSpawnPosition(getWorld(), entity);
     }
 
     private boolean isForestBiome(GraphRegion region, BiomeModel biomeModel) {
@@ -170,5 +171,4 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
     private boolean isDesertBiome(GraphRegion region, BiomeModel biomeModel) {
         return biomeModel.getBiome(region).equals(WhittakerBiome.TEMPERATE_DESERT) || biomeModel.getBiome(region).equals(WhittakerBiome.SUBTROPICAL_DESERT);
     }
-
 }
