@@ -99,7 +99,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         // graphs contains all graphs relevant within a radius of 7000 blocks from (0,0,0)
         GraphFacet graphs = worldRegion.getFacet(GraphFacet.class);
         WhittakerBiomeModelFacet model = worldRegion.getFacet(WhittakerBiomeModelFacet.class);
-        Vector2f pos2d = new Vector2f(pos.x(), pos.z());
+        org.joml.Vector2f pos2d = new org.joml.Vector2f(pos.x(), pos.z());
         CirclePickerClosest<GraphRegion> picker = new CirclePickerClosest<>(pos2d);
         boolean locationFound = false;
         // searches for a spawn point such that it contains all the biomes required nearby
@@ -143,7 +143,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                     continue;
                 }
                 if (!biome.equals(WhittakerBiome.OCEAN) && !biome.equals(WhittakerBiome.LAKE) && !biome.equals(WhittakerBiome.BEACH)) {
-                    picker.offer(r.getCenter(), r);
+                    picker.offer(JomlUtil.from(r.getCenter()), r);
                     locationFound = true;
                     break;
                 }
