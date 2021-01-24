@@ -3,6 +3,7 @@
 package org.terasology.lost.generator;
 
 import org.joml.RoundingMode;
+import org.joml.Vector2fc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector3i;
@@ -143,7 +144,7 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
                     continue;
                 }
                 if (!biome.equals(WhittakerBiome.OCEAN) && !biome.equals(WhittakerBiome.LAKE) && !biome.equals(WhittakerBiome.BEACH)) {
-                    picker.offer(JomlUtil.from(r.getCenter()), r);
+                    picker.offer(r.getCenter(), r);
                     locationFound = true;
                     break;
                 }
@@ -154,8 +155,8 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         }
         Vector2i target;
         if (picker.getClosest() != null) {
-            ImmutableVector2f hit = picker.getClosest().getCenter();
-            target = new Vector2i(hit.getX(), hit.getY());
+            Vector2fc hit = picker.getClosest().getCenter();
+            target = new Vector2i(hit.x(), hit.y());
         } else {
             target = new Vector2i(desiredPos.x(), desiredPos.z());
         }

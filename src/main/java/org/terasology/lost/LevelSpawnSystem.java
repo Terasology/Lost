@@ -4,6 +4,7 @@
 package org.terasology.lost;
 
 import org.joml.RoundingMode;
+import org.joml.Vector2fc;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
 import org.slf4j.Logger;
@@ -80,10 +81,10 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         // fetch the current voronoi region
         GraphRegion region = worldRegion.getFacet(GraphFacet.class).getWorldTriangle(Math.round(playerLocation.x),
                 Math.round(playerLocation.z)).getRegion();
-        ImmutableVector2f center = region.getCenter();
+        Vector2fc center = region.getCenter();
 
-        float distanceFromHut = center.distance(new Vector2f(progressTrackingComponent.hutPosition.x,
-                progressTrackingComponent.hutPosition.z));
+        float distanceFromHut = center.distance(progressTrackingComponent.hutPosition.x,
+                progressTrackingComponent.hutPosition.z);
         if (distanceFromHut < MINIMUM_DISTANCE_FROM_HUT && !event.getNewBiome().getDisplayName().contains("forest")) {
             return;
         }
@@ -93,8 +94,8 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         }
         if (levelURI != null && progressTrackingComponent.isWellFound()) {
             // round center coordinates to Integers
-            int x = Math.round(center.getX());
-            int y = Math.round(center.getY());
+            int x = Math.round(center.x());
+            int y = Math.round(center.y());
             int height = Math.round(surfacesFacet.getPrimarySurface(elevationFacet, x, y).orElse(elevationFacet.getWorld(x, y)));
 
             Vector3i spawnPosition = new Vector3i(x, height, y);
