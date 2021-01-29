@@ -90,7 +90,7 @@ public class OnSpawnSystem extends BaseComponentSystem {
         Vector3i spawnPosition = new Vector3i(x, height, y);
         spawnLevel("Lost:hut", spawnPosition, assetManager, entityManager);
         spawnPosition.y = 0;
-        progressTrackingComponent.hutPosition = JomlUtil.from(spawnPosition);
+        progressTrackingComponent.hutPosition.set(spawnPosition);
 
     }
 }
