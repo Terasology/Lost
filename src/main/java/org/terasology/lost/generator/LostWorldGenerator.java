@@ -4,6 +4,7 @@ package org.terasology.lost.generator;
 
 import org.joml.RoundingMode;
 import org.joml.Vector2fc;
+import org.joml.Vector2i;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector3i;
@@ -15,10 +16,6 @@ import org.terasology.engine.SimpleUri;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.spawner.FixedSpawner;
-import org.terasology.math.JomlUtil;
-import org.terasology.math.geom.ImmutableVector2f;
-import org.terasology.math.geom.Vector2f;
-import org.terasology.math.geom.Vector2i;
 import org.terasology.polyworld.biome.BiomeModel;
 import org.terasology.polyworld.biome.WhittakerBiome;
 import org.terasology.polyworld.biome.WhittakerBiomeModelFacet;
@@ -156,12 +153,12 @@ public class LostWorldGenerator extends BaseFacetedWorldGenerator {
         Vector2i target;
         if (picker.getClosest() != null) {
             Vector2fc hit = picker.getClosest().getCenter();
-            target = new Vector2i(hit.x(), hit.y());
+            target = new Vector2i(hit.x(), hit.y(), RoundingMode.FLOOR);
         } else {
             target = new Vector2i(desiredPos.x(), desiredPos.z());
         }
 
-        FixedSpawner spawner = new FixedSpawner(target.getX(), target.getY());
+        FixedSpawner spawner = new FixedSpawner(target.x(), target.y());
         return spawner.getSpawnPosition(getWorld(), entity);
     }
 
