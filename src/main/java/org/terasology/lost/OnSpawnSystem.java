@@ -30,7 +30,6 @@ import org.terasology.logic.inventory.InventoryManager;
 import org.terasology.logic.location.LocationComponent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.lost.generator.LostWorldGenerator;
-import org.terasology.math.JomlUtil;
 import org.terasology.registry.In;
 import org.terasology.world.WorldProvider;
 import org.terasology.world.block.BlockRegion;
