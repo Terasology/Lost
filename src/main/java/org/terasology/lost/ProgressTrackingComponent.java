@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 package org.terasology.lost;
@@ -17,7 +17,7 @@ public class ProgressTrackingComponent implements Component {
     // To track whether the well has been discovered
     boolean foundWell;
     // Stores the hut position once it is spawned to prevent overlapping with levels
-    Vector3i hutPosition;
+    Vector3i hutPosition = new Vector3i();
 
     public String getLevelPrefab(String biomeName) {
         return biomeToPrefab.get(biomeName);
