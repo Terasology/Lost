@@ -4,7 +4,7 @@
 package org.terasology.lost;
 
 import org.joml.Vector3i;
-import org.terasology.entitySystem.Component;
+import org.terasology.engine.entitySystem.Component;
 
 import java.util.HashMap;
 

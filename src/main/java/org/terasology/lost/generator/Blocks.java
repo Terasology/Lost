@@ -15,9 +15,9 @@
  */
 package org.terasology.lost.generator;
 
-import org.terasology.registry.CoreRegistry;
-import org.terasology.world.block.Block;
-import org.terasology.world.block.BlockManager;
+import org.terasology.engine.registry.CoreRegistry;
+import org.terasology.engine.world.block.Block;
+import org.terasology.engine.world.block.BlockManager;
 
 /**
  * Utility class that can be used to access blocks from the Core Registry's block manager.

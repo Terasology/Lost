@@ -11,27 +11,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.assets.management.AssetManager;
 import org.terasology.biomesAPI.OnBiomeChangedEvent;
-import org.terasology.entitySystem.entity.EntityBuilder;
-import org.terasology.entitySystem.entity.EntityManager;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.prefab.Prefab;
-import org.terasology.entitySystem.systems.BaseComponentSystem;
-import org.terasology.entitySystem.systems.RegisterMode;
-import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.logic.inventory.InventoryManager;
-import org.terasology.logic.location.LocationComponent;
+import org.terasology.engine.entitySystem.entity.EntityBuilder;
+import org.terasology.engine.entitySystem.entity.EntityManager;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.event.ReceiveEvent;
+import org.terasology.engine.entitySystem.prefab.Prefab;
+import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
+import org.terasology.engine.entitySystem.systems.RegisterMode;
+import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.logic.inventory.InventoryManager;
+import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.math.Side;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.world.WorldProvider;
+import org.terasology.engine.world.block.BlockRegion;
+import org.terasology.engine.world.generation.facets.ElevationFacet;
+import org.terasology.engine.world.generation.facets.SurfacesFacet;
 import org.terasology.lost.generator.LostWorldGenerator;
-import org.terasology.math.Side;
 import org.terasology.polyworld.graph.GraphFacet;
 import org.terasology.polyworld.graph.GraphRegion;
-import org.terasology.registry.In;
 import org.terasology.structureTemplates.events.SpawnStructureEvent;
 import org.terasology.structureTemplates.util.BlockRegionTransform;
-import org.terasology.world.WorldProvider;
-import org.terasology.world.block.BlockRegion;
-import org.terasology.world.generation.facets.ElevationFacet;
-import org.terasology.world.generation.facets.SurfacesFacet;
 
 import java.util.Set;
 
@@ -72,7 +72,7 @@ public class LevelSpawnSystem extends BaseComponentSystem {
         BlockRegion searchRegion = new BlockRegion(desiredPos).expand(extent);
 
         // obtain surface height facet for the search region
-        org.terasology.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
+        org.terasology.engine.world.generation.Region worldRegion = LostWorldGenerator.world.getWorldData(searchRegion);
         SurfacesFacet surfacesFacet = worldRegion.getFacet(SurfacesFacet.class);
         ElevationFacet elevationFacet = worldRegion.getFacet(ElevationFacet.class);
 

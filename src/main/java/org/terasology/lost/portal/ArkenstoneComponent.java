@@ -15,8 +15,8 @@
  */
 package org.terasology.lost.portal;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.network.Replicate;
+import org.terasology.engine.entitySystem.Component;
+import org.terasology.engine.network.Replicate;
 
 @Replicate
 public class ArkenstoneComponent implements Component {
