@@ -5,22 +5,71 @@
     "displayName": "Lost",
     "description": "Are you truly lost? Will you ever return home?",
     "dependencies": [
-        { "id": "AdventureAssets", "minVersion": "1.0.0" },
-        { "id": "BiomesAPI", "minVersion": "4.0.0" },
-        { "id": "Books", "minVersion": "1.1.0" },
-        { "id": "CommonWorld", "minVersion": "1.0.0" },
-        { "id": "ChrisVolume1OST", "minVersion": "1.0.0" },
-        { "id": "CoreAdvancedAssets", "minVersion": "1.1.0" },
-        { "id": "CoreAssets", "minVersion": "2.0.1" },
-        { "id": "CoreRendering", "minVersion": "1.0.0" },
-        { "id": "CoreWorlds", "minVersion": "1.1.0", "maxVersion": "3.0.0" },
-        { "id": "DamagingBlocks", "minVersion": "1.0.0" },
-        { "id": "Health", "minVersion": "1.0.0" },
-        { "id": "Inventory", "minVersion": "1.1.0" },
-        { "id": "Journal", "minVersion": "1.0.0" },
-        { "id": "PolyWorld", "minVersion": "1.0.0" },
-        { "id": "StructureTemplates", "minVersion": "1.0.0"},
-        { "id": "WorldlyTooltip", "minVersion": "1.2.0" }
+        {
+            "id": "AdventureAssets",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "BiomesAPI",
+            "minVersion": "4.0.0"
+        },
+        {
+            "id": "Books",
+            "minVersion": "1.1.0"
+        },
+        {
+            "id": "CommonWorld",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "ChrisVolume1OST",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "CoreAdvancedAssets",
+            "minVersion": "1.1.0"
+        },
+        {
+            "id": "CoreAssets",
+            "minVersion": "2.0.1"
+        },
+        {
+            "id": "CoreRendering",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "CoreWorlds",
+            "minVersion": "1.1.0",
+            "maxVersion": "3.0.0"
+        },
+        {
+            "id": "DamagingBlocks",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "Health",
+            "minVersion": "2.0.0-SNAPSHOT"
+        },
+        {
+            "id": "Inventory",
+            "minVersion": "1.1.0"
+        },
+        {
+            "id": "Journal",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "PolyWorld",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "StructureTemplates",
+            "minVersion": "1.0.0"
+        },
+        {
+            "id": "WorldlyTooltip",
+            "minVersion": "1.2.0"
+        }
     ],
     "serverSideOnly": false,
     "isGameplay": "true",
