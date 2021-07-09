@@ -4,14 +4,14 @@
 package org.terasology.lost;
 
 import org.joml.Vector3i;
-import org.terasology.engine.entitySystem.Component;
+import org.terasology.gestalt.entitysystem.component.Component;
 
 import java.util.HashMap;
 
 /**
  * Component to track a players progress during Lost
  */
-public class ProgressTrackingComponent implements Component {
+public class ProgressTrackingComponent implements Component<ProgressTrackingComponent> {
     // Biomes mapped to the corresponding level URIs
     HashMap<String, String> biomeToPrefab = new HashMap<String, String>();
     // To track whether the well has been discovered
