@@ -3,6 +3,7 @@
 
 package org.terasology.lost;
 
+import com.google.common.collect.Maps;
 import org.joml.Vector3i;
 import org.terasology.gestalt.entitysystem.component.Component;
 
@@ -31,5 +32,12 @@ public class ProgressTrackingComponent implements Component<ProgressTrackingComp
         for (String biome : biomes) {
             biomeToPrefab.put(biome, prefabName);
         }
+    }
+
+    @Override
+    public void copy(ProgressTrackingComponent other) {
+        this.biomeToPrefab = Maps.newHashMap(other.biomeToPrefab);
+        this.foundWell = other.foundWell;
+        this.hutPosition.set(other.hutPosition);
     }
 }

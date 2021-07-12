@@ -10,4 +10,9 @@ public class ArkenstoneComponent implements Component<ArkenstoneComponent> {
 
     // Stores whether block is activated
     public boolean activated = false;
+
+    @Override
+    public void copy(ArkenstoneComponent other) {
+        this.activated = other.activated;
+    }
 }
