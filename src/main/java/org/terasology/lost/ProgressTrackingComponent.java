@@ -35,7 +35,7 @@ public class ProgressTrackingComponent implements Component<ProgressTrackingComp
     }
 
     @Override
-    public void copy(ProgressTrackingComponent other) {
+    public void copyFrom(ProgressTrackingComponent other) {
         this.biomeToPrefab = Maps.newHashMap(other.biomeToPrefab);
         this.foundWell = other.foundWell;
         this.hutPosition.set(other.hutPosition);

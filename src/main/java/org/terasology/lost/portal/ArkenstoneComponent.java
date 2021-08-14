@@ -12,7 +12,7 @@ public class ArkenstoneComponent implements Component<ArkenstoneComponent> {
     public boolean activated = false;
 
     @Override
-    public void copy(ArkenstoneComponent other) {
+    public void copyFrom(ArkenstoneComponent other) {
         this.activated = other.activated;
     }
 }
