@@ -18,7 +18,6 @@ package org.terasology.lost.journal.integration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.prefab.Prefab;
 import org.terasology.engine.entitySystem.prefab.PrefabManager;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
@@ -33,6 +32,7 @@ import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRen
 import org.terasology.engine.utilities.Assets;
 import org.terasology.engine.world.block.BlockManager;
 import org.terasology.gestalt.assets.ResourceUrn;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 import org.terasology.journal.BrowserJournalChapterHandler;
 import org.terasology.journal.DiscoveredNewJournalEntry;
 import org.terasology.journal.JournalAccessComponent;
