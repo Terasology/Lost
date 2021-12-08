@@ -21,7 +21,6 @@ import org.joml.Vector3i;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
@@ -34,6 +33,7 @@ import org.terasology.engine.registry.In;
 import org.terasology.engine.world.BlockEntityRegistry;
 import org.terasology.engine.world.block.BlockComponent;
 import org.terasology.engine.world.block.items.BlockItemComponent;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 
 @RegisterSystem(RegisterMode.AUTHORITY)
 public class LostPortalSystem extends BaseComponentSystem {

@@ -17,16 +17,13 @@ package org.terasology.lost.journal.integration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.prefab.Prefab;
 import org.terasology.engine.entitySystem.prefab.PrefabManager;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
 import org.terasology.engine.logic.characters.CharacterComponent;
-import org.terasology.module.inventory.events.InventorySlotChangedEvent;
 import org.terasology.engine.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.rendering.nui.widgets.browser.data.ParagraphData;
@@ -34,12 +31,15 @@ import org.terasology.engine.rendering.nui.widgets.browser.data.basic.HTMLLikePa
 import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 import org.terasology.engine.utilities.Assets;
 import org.terasology.engine.world.block.BlockManager;
+import org.terasology.gestalt.assets.ResourceUrn;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 import org.terasology.journal.BrowserJournalChapterHandler;
 import org.terasology.journal.DiscoveredNewJournalEntry;
 import org.terasology.journal.JournalAccessComponent;
 import org.terasology.journal.JournalEntryProducer;
 import org.terasology.journal.JournalManager;
 import org.terasology.journal.TimestampResolver;
+import org.terasology.module.inventory.events.InventorySlotChangedEvent;
 import org.terasology.nui.HorizontalAlign;
 
 import java.util.Arrays;
