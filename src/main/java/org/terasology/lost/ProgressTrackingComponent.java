@@ -14,11 +14,11 @@ import java.util.HashMap;
  */
 public class ProgressTrackingComponent implements Component<ProgressTrackingComponent> {
     // Biomes mapped to the corresponding level URIs
-    HashMap<String, String> biomeToPrefab = new HashMap<String, String>();
+    public HashMap<String, String> biomeToPrefab = new HashMap<String, String>();
     // To track whether the well has been discovered
-    boolean foundWell;
+    public boolean foundWell;
     // Stores the hut position once it is spawned to prevent overlapping with levels
-    Vector3i hutPosition = new Vector3i();
+    public Vector3i hutPosition = new Vector3i();
 
     public String getLevelPrefab(String biomeName) {
         return biomeToPrefab.get(biomeName);
